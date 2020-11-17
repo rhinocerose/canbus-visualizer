@@ -11,7 +11,7 @@ pub trait UnitCheck {
 
 impl UnitCheck for SpnDefinition {
     fn return_units(&self) {
-        println!("{}", self.units)
+        // println!("{}", self.units)
     }
 }
 #[tokio::main]
@@ -19,7 +19,7 @@ async fn main() -> Result<(), Error> {
 
     let mut sys_val = configs::SystemValues::new();
 
-    let lib = PgnLibrary::from_dbc_file("./data/anz.dbc").unwrap();
+    let lib = PgnLibrary::from_dbc_file("./data/anzen.dbc").unwrap();
 
     let mut socket_rx = CANSocket::open("vcan0")?;
     // let socket_tx = CANSocket::open("vcan0")?;
@@ -35,7 +35,7 @@ async fn main() -> Result<(), Error> {
 
 fn read_frame(target_value: &str, library: &PgnLibrary, message: &[u8]) -> f32 {
     let temp: &SpnDefinition = library.get_spn(target_value).unwrap();
-    let units = temp.units;
+    // let units = temp.units;
     temp.parse_message(message).unwrap()
 }
 
@@ -60,12 +60,12 @@ fn parse_frame(library: &PgnLibrary, frame: &CANFrame, values: &mut configs::Sys
         std::mem::swap(&mut values.power_cumulative, &mut read_frame("power_cumulative", &library, frame.data()));
         std::mem::swap(&mut values.power_instant, &mut read_frame("power_instant", &library, frame.data()));
     }
-    // if frame.id() == 0x183CCCE8 {
-    //     std::mem::swap(&mut values.voltage_hv1, &mut read_frame("voltage_hv1", &library, frame.data()));
-    //     std::mem::swap(&mut values.voltage_hv2, &mut read_frame("voltage_hv2", &library, frame.data()));
-    //     std::mem::swap(&mut values.voltage_supply, &mut read_frame("voltage_supply", &library, frame.data()));
-    // }
-    // if frame.id() == 0x1834CCE8 {
-    //     std::mem::swap(&mut values.raw_temperature_diode, &mut read_frame("raw_temperature_diode", &library, frame.data()));
-    // }
+    if frame.id() == 0x183CCCE8 {
+        std::mem::swap(&mut values.voltage_hv1, &mut read_frame("voltage_hv1", &library, frame.data()));
+        std::mem::swap(&mut values.voltage_hv2, &mut read_frame("voltage_hv2", &library, frame.data()));
+        std::mem::swap(&mut values.voltage_supply, &mut read_frame("voltage_supply", &library, frame.data()));
+    }
+    if frame.id() == 0x1834CCE8 {
+        std::mem::swap(&mut values.raw_temperature_diode, &mut read_frame("raw_temperature_diode", &library, frame.data()));
+    }
 }
