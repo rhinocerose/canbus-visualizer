@@ -1,0 +1,24 @@
+[package]
+name = "canbus-visualizer"
+version = "0.1.0"
+authors = ["rhinocerose <ashar.k.latif@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[build-dependencies.config_struct]
+version = "~0.4.0"
+features = ["toml-parsing"]
+
+[dependencies]
+canparse = "0.1"
+can-dbc = "3.0.2"
+config_struct = "0.5.0"
+futures = "0.3"
+futures-util = "0.3"
+socketcan = "1.7"
+tokio-socketcan = "0.2.0"
+tokio = "0.2"
+
+[dependencies.nom]
+version = "4.2"
+features = ["verbose-errors"]

@@ -1,0 +1,16 @@
+// config.toml
+contactor_temp = 0.0
+diode_temp = 0.0
+max_temperature = 0.0
+min_temperature = 0.0
+max_voltage = 0.0
+min_voltage = 0.0
+state_current = 0.0
+soc = 0.0
+stack_voltage = 0.0
+current_system = 0.0
+power_instant = 0.0
+power_cumulative = 0.0
+current_shunt = 0.0
+current_hall = 0.0
+raw_diode_temp = 0.0
