@@ -65,17 +65,17 @@ BO_ 406637800 DEBUG_FRAME: 8 MASTER
 
 BO_ 406113512 RAW_FRAME: 8 MASTER
     SG_ raw_frameid M : 0|8@1+ (1,0) [0|0] "" SLAVE
-    SG_ raw_state_present m1 : 8:8@1+ (1,0) [0|0] "" SLAVE
-    SG_ raw_state_previous m1 : 16:8@1+ (1,0) [0|0] "" SLAVE
-    SG_ raw_state_historic m1 : 24:8@1+ (1,0) [0|0] "" SLAVE
-    SG_ raw_state_error_message m1 : 32:8@1+ (1,0) [0|0] "" SLAVE
-    SG_ raw_temperature_system m1 : 40:8@1+ (1,-40) [-40|215] "Celcius" SLAVE
-    SG_ raw_temperature_diode m1 : 48:8@1+ (1,-40) [-40|215] "Celcius" SLAVE
-    SG_ raw_temperature_contactor m1 : 56:8@1+ (1,-40) [-40|215] "Celcius" SLAVE
-    SG_ raw_current_system m2 : 8:16@0+ (0.1,-1600) [0|0] "Amps" SLAVE
-    SG_ raw_current_hall m2 : 24:16@0+ (0.1,-1600) [0|0] "Amps" SLAVE
-    SG_ raw_current_shunt m2 : 40:16@0+ (0.1,-1600) [0|0] "Amps" SLAVE
     SG_ raw_soc m2 : 56|8@1+ (1,0) [0|100] "Percent" SLAVE
+    SG_ raw_state_present_num m1 : 8|8@1+ (1,0) [0|0] "0" MASTER
+    SG_ raw_state_previous_num m1 : 16|8@1+ (1,0) [0|0] "" MASTER
+    SG_ raw_state_historic_num m1 : 24|8@1+ (1,0) [0|0] "" MASTER
+    SG_ raw_temperature_system m1 : 40|8@1+ (1,-40) [0|0] "Celcius" MASTER
+    SG_ raw_state_error_message m1 : 32|8@1+ (1,0) [0|0] "" MASTER
+    SG_ raw_temperature_diode m1 : 48|8@1+ (1,-40) [0|0] "Celcius" MASTER
+    SG_ raw_temperature_contactor m1 : 56|8@1+ (1,-40) [0|0] "Celcius" MASTER
+    SG_ raw_current_system m2 : 8|16@1+ (0.1,-1600) [0|0] "Amps" SLAVE
+    SG_ raw_current_hall m2 : 24|16@1+ (0.1,-1600) [0|0] "Amps" SLAVE
+    SG_ raw_current_shunt m2 : 40|16@1+ (0.1,-1600) [0|0] "Amps" SLAVE
 
  CM_ SG_ 406768872 Diode_Temp "Diode temperature";
  BA_ "SPN" SG_ 406768872 Diode_Temp 190;
