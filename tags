@@ -1,0 +1,52 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/86bdb84c/
+Charge	src/configs/systemvalues.rs	/^    Charge,$/;"	e	enum:States
+Discharge	src/configs/systemvalues.rs	/^    Discharge,$/;"	e	enum:States
+EOD	src/configs/systemvalues.rs	/^    EOD,$/;"	e	enum:States
+Error	src/configs/systemvalues.rs	/^    Error,$/;"	e	enum:States
+PreStandby	src/configs/systemvalues.rs	/^    PreStandby,$/;"	e	enum:States
+Service	src/configs/systemvalues.rs	/^    Service,$/;"	e	enum:States
+SpnDefinition	src/main.rs	/^impl UnitCheck for SpnDefinition {$/;"	c
+Standby	src/configs/systemvalues.rs	/^    Standby,$/;"	e	enum:States
+States	src/configs/systemvalues.rs	/^pub enum States {$/;"	g
+SystemValues	src/configs/systemvalues.rs	/^impl SystemValues {$/;"	c
+SystemValues	src/configs/systemvalues.rs	/^impl std::fmt::Display for SystemValues {$/;"	c
+SystemValues	src/configs/systemvalues.rs	/^pub struct SystemValues {$/;"	s
+UnitCheck	src/main.rs	/^pub trait UnitCheck {$/;"	i
+configs	src/main.rs	/^mod configs;$/;"	n
+current_hall	src/configs/systemvalues.rs	/^    pub current_hall: f32,$/;"	m	struct:SystemValues
+current_shunt	src/configs/systemvalues.rs	/^    pub current_shunt: f32,$/;"	m	struct:SystemValues
+current_system	src/configs/systemvalues.rs	/^    pub current_system: f32,$/;"	m	struct:SystemValues
+fmt	src/configs/systemvalues.rs	/^    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {$/;"	P	implementation:SystemValues
+main	src/main.rs	/^async fn main() -> Result<(), Error> {$/;"	f
+new	src/configs/systemvalues.rs	/^    pub fn new() -> SystemValues {$/;"	P	implementation:SystemValues
+parse_frame	src/main.rs	/^fn parse_frame(library: &PgnLibrary, frame: &CANFrame, values: &mut configs::SystemValues) {$/;"	f
+parse_state	src/configs/systemvalues.rs	/^    pub fn parse_state(&self) {$/;"	P	implementation:SystemValues
+power_cumulative	src/configs/systemvalues.rs	/^    pub power_cumulative: f32,$/;"	m	struct:SystemValues
+power_instant	src/configs/systemvalues.rs	/^    pub power_instant: f32,$/;"	m	struct:SystemValues
+print_frame	src/configs/systemvalues.rs	/^    pub fn print_frame(&self) {$/;"	P	implementation:SystemValues
+raw_temperature_diode	src/configs/systemvalues.rs	/^    pub raw_temperature_diode: f32,$/;"	m	struct:SystemValues
+read_frame	src/main.rs	/^fn read_frame(target_value: &str, library: &PgnLibrary, message: &[u8]) -> f32 {$/;"	f
+return_units	src/main.rs	/^    fn return_units(&self) ;$/;"	P	interface:UnitCheck
+return_units	src/main.rs	/^    fn return_units(&self) {$/;"	P	implementation:SpnDefinition
+soc	src/configs/systemvalues.rs	/^    pub soc: f32,$/;"	m	struct:SystemValues
+state_current	src/configs/systemvalues.rs	/^    pub state_current: States,$/;"	m	struct:SystemValues
+state_current_num	src/configs/systemvalues.rs	/^    pub state_current_num: f32,$/;"	m	struct:SystemValues
+systemvalues	src/configs.rs	/^mod systemvalues;$/;"	n
+temperature_contactor	src/configs/systemvalues.rs	/^    pub temperature_contactor: f32,$/;"	m	struct:SystemValues
+temperature_diode	src/configs/systemvalues.rs	/^    pub temperature_diode: f32,$/;"	m	struct:SystemValues
+temperature_max_mono	src/configs/systemvalues.rs	/^    pub temperature_max_mono: f32,$/;"	m	struct:SystemValues
+temperature_min_mono	src/configs/systemvalues.rs	/^    pub temperature_min_mono: f32,$/;"	m	struct:SystemValues
+voltage_hv1	src/configs/systemvalues.rs	/^    pub voltage_hv1: f32,$/;"	m	struct:SystemValues
+voltage_hv2	src/configs/systemvalues.rs	/^    pub voltage_hv2: f32,$/;"	m	struct:SystemValues
+voltage_max_mono	src/configs/systemvalues.rs	/^    pub voltage_max_mono: f32,$/;"	m	struct:SystemValues
+voltage_min_mono	src/configs/systemvalues.rs	/^    pub voltage_min_mono: f32,$/;"	m	struct:SystemValues
+voltage_stack	src/configs/systemvalues.rs	/^    pub voltage_stack: f32,$/;"	m	struct:SystemValues
+voltage_supply	src/configs/systemvalues.rs	/^    pub voltage_supply: f32,$/;"	m	struct:SystemValues

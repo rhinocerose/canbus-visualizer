@@ -32,6 +32,7 @@ pub struct SystemValues {
     pub current_shunt: f32,
     pub current_hall: f32,
     pub raw_temperature_diode: f32,
+    pub raw_soc: f32,
 }
 
 impl SystemValues {
@@ -56,6 +57,7 @@ impl SystemValues {
             current_shunt: 0.0,
             current_hall: 0.0,
             raw_temperature_diode: 0.0,
+            raw_soc: 0.0,
         }
     }
     pub fn parse_state(&self) {
