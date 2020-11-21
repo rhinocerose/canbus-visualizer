@@ -11,6 +11,37 @@ pub enum States {
     Error,
 }
 
+#[derive(Debug, Clone)]
+pub struct CollectedValues {
+    pub name: String,
+    pub value: f32,
+    pub last_updated: i32,
+}
+
+impl CollectedValues {
+    pub fn new(name: String) -> CollectedValues {
+        CollectedValues {
+            name,
+            value: 0.0,
+            last_updated: -1,
+        }
+    }
+    pub fn update_entry(&mut self, value: f32) {
+        self.value = value;
+        self.last_updated = 0;
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct Overview {
+    pub temperature_contactor: CollectedValues,
+    pub temperature_diode: CollectedValues,
+    pub temperature_min_mono: CollectedValues,
+    pub temperature_max_mono: CollectedValues,
+    pub voltage_min_mono: CollectedValues,
+    pub voltage_max_mono: CollectedValues,
+}
+
 #[derive(Debug, Copy, Clone)]
 pub struct SystemValues {
     pub temperature_contactor: f32,
@@ -68,13 +99,22 @@ impl SystemValues {
         println!("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         println!("%%  TEMPS:");
         println!("%%  Max Temp {}, Min Temp {}, Diode Temp {}, Contactor Temp {}",
-            self.temperature_max_mono, self.temperature_min_mono, self.temperature_diode, self.temperature_contactor);
+            self.temperature_max_mono,
+            self.temperature_min_mono,
+            self.temperature_diode,
+            self.temperature_contactor);
         println!("%%  VOLTAGES:");
         println!("%%  Max voltages {:.2}, Min voltages {:.2}, Stack voltage {:.2}",
-            self.voltage_max_mono, self.voltage_min_mono, self.voltage_stack);
+            self.voltage_max_mono,
+            self.voltage_min_mono,
+            self.voltage_stack);
         println!("%%  CURRENTS:");
         println!("%%  System Current {:.2}, Hall Current {:.2}, Shunt Current {:.2}",
-            self.current_system, self.current_hall, self.current_shunt);
+            self.current_system,
+            self.current_hall,
+            self.current_shunt);
+        println!("%%  STATE: {}", self.state_current_num);
+        println!("%%  SOC: {}/%", self.soc);
         println!("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         println!("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
     }
