@@ -1,5 +1,7 @@
 #![allow(dead_code)]
 
+use std::collections::HashMap;
+
 #[derive(Debug, Copy, Clone)]
 pub enum States {
     Standby,
@@ -12,34 +14,56 @@ pub enum States {
 }
 
 #[derive(Debug, Clone)]
-pub struct CollectedValues {
-    pub name: String,
+pub struct CollectedValues<'a> {
+    pub identifier: &'a str,
+    pub display_name: String,
     pub value: f32,
     pub last_updated: i32,
 }
 
-impl CollectedValues {
-    pub fn new(name: String) -> CollectedValues {
+impl<'a> CollectedValues<'a> {
+    pub fn new(identifier: &'a str, display_name: String) -> CollectedValues {
         CollectedValues {
-            name,
+            identifier,
+            display_name,
             value: 0.0,
             last_updated: -1,
         }
     }
+
     pub fn update_entry(&mut self, value: f32) {
         self.value = value;
         self.last_updated = 0;
     }
+
+    pub fn give_id(&self) -> &'a str {
+        self.identifier
+    }
+
+    pub fn not_updated(&mut self) {
+        self.last_updated += 1;
+    }
 }
 
 #[derive(Debug, Clone)]
-pub struct Overview {
-    pub temperature_contactor: CollectedValues,
-    pub temperature_diode: CollectedValues,
-    pub temperature_min_mono: CollectedValues,
-    pub temperature_max_mono: CollectedValues,
-    pub voltage_min_mono: CollectedValues,
-    pub voltage_max_mono: CollectedValues,
+pub struct Overview<'a> {
+    pub hash_map: HashMap<&'a str, CollectedValues<'a>>,
+}
+
+impl<'a> Overview<'a> {
+    pub fn new() -> Overview<'a> {
+        Overview { hash_map: HashMap::new() }
+    }
+
+    pub fn join(&mut self, values: CollectedValues<'a>) {
+        self.hash_map.insert(values.identifier, values);
+    }
+
+    pub fn update_entry(&mut self, identifier: &'a str, new_entry: f32) {
+        let temp = self.hash_map.get_mut(identifier).unwrap();
+        temp.update_entry(new_entry);
+    }
+
 }
 
 #[derive(Debug, Copy, Clone)]
@@ -90,9 +114,6 @@ impl SystemValues {
             raw_temperature_diode: 0.0,
             raw_soc: 0.0,
         }
-    }
-    pub fn parse_state(&self) {
-
     }
     pub fn print_frame(&self) {
         println!("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
