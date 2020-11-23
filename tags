@@ -8,12 +8,13 @@
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/86bdb84c/
 Charge	src/configs/systemvalues.rs	/^    Charge,$/;"	e	enum:States
-CollectedValues	src/configs/systemvalues.rs	/^impl CollectedValues {$/;"	c
-CollectedValues	src/configs/systemvalues.rs	/^pub struct CollectedValues {$/;"	s
+CollectedValues	src/configs/systemvalues.rs	/^impl<'a> CollectedValues<'a> {$/;"	c
+CollectedValues	src/configs/systemvalues.rs	/^pub struct CollectedValues<'a> {$/;"	s
 Discharge	src/configs/systemvalues.rs	/^    Discharge,$/;"	e	enum:States
 EOD	src/configs/systemvalues.rs	/^    EOD,$/;"	e	enum:States
 Error	src/configs/systemvalues.rs	/^    Error,$/;"	e	enum:States
-Overview	src/configs/systemvalues.rs	/^pub struct Overview {$/;"	s
+Overview	src/configs/systemvalues.rs	/^impl<'a> Overview<'a> {$/;"	c
+Overview	src/configs/systemvalues.rs	/^pub struct Overview<'a> {$/;"	s
 PreStandby	src/configs/systemvalues.rs	/^    PreStandby,$/;"	e	enum:States
 Service	src/configs/systemvalues.rs	/^    Service,$/;"	e	enum:States
 Standby	src/configs/systemvalues.rs	/^    Standby,$/;"	e	enum:States
@@ -25,14 +26,20 @@ configs	src/main.rs	/^mod configs;$/;"	n
 current_hall	src/configs/systemvalues.rs	/^    pub current_hall: f32,$/;"	m	struct:SystemValues
 current_shunt	src/configs/systemvalues.rs	/^    pub current_shunt: f32,$/;"	m	struct:SystemValues
 current_system	src/configs/systemvalues.rs	/^    pub current_system: f32,$/;"	m	struct:SystemValues
+display_name	src/configs/systemvalues.rs	/^    pub display_name: String,$/;"	m	struct:CollectedValues
 fmt	src/configs/systemvalues.rs	/^    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {$/;"	P	implementation:SystemValues
+give_id	src/configs/systemvalues.rs	/^    pub fn give_id(&self) -> &'a str {$/;"	P	implementation:CollectedValues
+hash_map	src/configs/systemvalues.rs	/^    pub hash_map: HashMap<&'a str, CollectedValues<'a>>,$/;"	m	struct:Overview
+identifier	src/configs/systemvalues.rs	/^    pub identifier: &'a str,$/;"	m	struct:CollectedValues
+join	src/configs/systemvalues.rs	/^    pub fn join(&mut self, values: CollectedValues<'a>) {$/;"	P	implementation:Overview
 last_updated	src/configs/systemvalues.rs	/^    pub last_updated: i32,$/;"	m	struct:CollectedValues
 main	src/main.rs	/^async fn main() -> Result<(), Error> {$/;"	f
-name	src/configs/systemvalues.rs	/^    pub name: String,$/;"	m	struct:CollectedValues
+new	src/configs/systemvalues.rs	/^    pub fn new() -> Overview<'a> {$/;"	P	implementation:Overview
 new	src/configs/systemvalues.rs	/^    pub fn new() -> SystemValues {$/;"	P	implementation:SystemValues
-new	src/configs/systemvalues.rs	/^    pub fn new(name: String) -> CollectedValues {$/;"	P	implementation:CollectedValues
-parse_frame	src/main.rs	/^fn parse_frame(library: &PgnLibrary, frame: &CANFrame, values: &mut configs::SystemValues, map: /;"	f
-parse_state	src/configs/systemvalues.rs	/^    pub fn parse_state(&self) {$/;"	P	implementation:SystemValues
+new	src/configs/systemvalues.rs	/^    pub fn new(identifier: &'a str, display_name: String) -> CollectedValues {$/;"	P	implementation:CollectedValues
+not_updated	src/configs/systemvalues.rs	/^    pub fn not_updated(&mut self) {$/;"	P	implementation:CollectedValues
+parse_frame	src/main.rs	/^fn parse_frame(library: &PgnLibrary, frame: &CANFrame, values: &mut configs::Overview) {$/;"	f
+parse_frame2	src/main.rs	/^fn parse_frame2(library: &PgnLibrary, frame: &CANFrame, map: &mut HashMap<&str, f32>) {$/;"	f
 power_cumulative	src/configs/systemvalues.rs	/^    pub power_cumulative: f32,$/;"	m	struct:SystemValues
 power_instant	src/configs/systemvalues.rs	/^    pub power_instant: f32,$/;"	m	struct:SystemValues
 print_frame	src/configs/systemvalues.rs	/^    pub fn print_frame(&self) {$/;"	P	implementation:SystemValues
@@ -43,21 +50,16 @@ soc	src/configs/systemvalues.rs	/^    pub soc: f32,$/;"	m	struct:SystemValues
 state_current	src/configs/systemvalues.rs	/^    pub state_current: States,$/;"	m	struct:SystemValues
 state_current_num	src/configs/systemvalues.rs	/^    pub state_current_num: f32,$/;"	m	struct:SystemValues
 systemvalues	src/configs.rs	/^mod systemvalues;$/;"	n
-temperature_contactor	src/configs/systemvalues.rs	/^    pub temperature_contactor: CollectedValues,$/;"	m	struct:Overview
 temperature_contactor	src/configs/systemvalues.rs	/^    pub temperature_contactor: f32,$/;"	m	struct:SystemValues
-temperature_diode	src/configs/systemvalues.rs	/^    pub temperature_diode: CollectedValues,$/;"	m	struct:Overview
 temperature_diode	src/configs/systemvalues.rs	/^    pub temperature_diode: f32,$/;"	m	struct:SystemValues
-temperature_max_mono	src/configs/systemvalues.rs	/^    pub temperature_max_mono: CollectedValues,$/;"	m	struct:Overview
 temperature_max_mono	src/configs/systemvalues.rs	/^    pub temperature_max_mono: f32,$/;"	m	struct:SystemValues
-temperature_min_mono	src/configs/systemvalues.rs	/^    pub temperature_min_mono: CollectedValues,$/;"	m	struct:Overview
 temperature_min_mono	src/configs/systemvalues.rs	/^    pub temperature_min_mono: f32,$/;"	m	struct:SystemValues
+update_entry	src/configs/systemvalues.rs	/^    pub fn update_entry(&mut self, identifier: &'a str, new_entry: f32) {$/;"	P	implementation:Overview
 update_entry	src/configs/systemvalues.rs	/^    pub fn update_entry(&mut self, value: f32) {$/;"	P	implementation:CollectedValues
 value	src/configs/systemvalues.rs	/^    pub value: f32,$/;"	m	struct:CollectedValues
 voltage_hv1	src/configs/systemvalues.rs	/^    pub voltage_hv1: f32,$/;"	m	struct:SystemValues
 voltage_hv2	src/configs/systemvalues.rs	/^    pub voltage_hv2: f32,$/;"	m	struct:SystemValues
-voltage_max_mono	src/configs/systemvalues.rs	/^    pub voltage_max_mono: CollectedValues,$/;"	m	struct:Overview
 voltage_max_mono	src/configs/systemvalues.rs	/^    pub voltage_max_mono: f32,$/;"	m	struct:SystemValues
-voltage_min_mono	src/configs/systemvalues.rs	/^    pub voltage_min_mono: CollectedValues,$/;"	m	struct:Overview
 voltage_min_mono	src/configs/systemvalues.rs	/^    pub voltage_min_mono: f32,$/;"	m	struct:SystemValues
 voltage_stack	src/configs/systemvalues.rs	/^    pub voltage_stack: f32,$/;"	m	struct:SystemValues
 voltage_supply	src/configs/systemvalues.rs	/^    pub voltage_supply: f32,$/;"	m	struct:SystemValues

@@ -1,11 +1,22 @@
 ---
 
-frame_id: 406768872
-  name: diode_temp
-    subsystem: temperature
-  name: contactor_temp
-    subsystem: temperature
-  name: max_monoblock_temp
-    subsystem: temperature
-  name: min_monoblock_temp
-    subsystem: temperature
+identifier: "temperature_diode"
+  display_name: "Diode Temperature"
+  frame_id: 406768872
+  subsystem: temperature
+identifier: "temperature_contactor"
+  display_name: "Contactor Temperature"
+  frame_id: 406768872
+  subsystem: temperature
+identifier: "temperature_min_mono"
+  display_name: "Min Temperature"
+  frame_id: 406768872
+  subsystem: temperature
+identifier: "temperature_max_mono"
+  display_name: "Max Temperature"
+  frame_id: 406768872
+  subsystem: temperature
+identifier: "temperature_diode"
+  display_name: "Diode Temperature"
+  frame_id: 406768872
+  subsystem: temperature

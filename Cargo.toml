@@ -12,6 +12,7 @@ features = ["toml-parsing"]
 [dependencies]
 canparse = "0.1"
 can-dbc = "3.0.2"
+chrono = "0.4.6"
 config_struct = "0.5.0"
 futures = "0.3"
 futures-util = "0.3"
