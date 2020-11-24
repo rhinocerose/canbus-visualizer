@@ -10,6 +10,7 @@ version = "~0.4.0"
 features = ["toml-parsing"]
 
 [dependencies]
+anyhow = "1.0"
 canparse = "0.1"
 can-dbc = "3.0.2"
 chrono = "0.4.6"

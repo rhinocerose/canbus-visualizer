@@ -23,7 +23,7 @@ pub struct StateStatus {
 #[derive(Debug, Clone)]
 pub struct NodeValue<'a> {
     pub identifier: &'a str,
-    pub display_name: String,
+    pub display_name: &'a str,
     pub value: f32,
     pub frame_id: u32,
     pub last_updated: DateTime<Local>,
@@ -31,7 +31,8 @@ pub struct NodeValue<'a> {
 }
 
 impl<'a> NodeValue<'a> {
-    pub fn new(identifier: &'a str, display_name: String, frame_id: u32) -> NodeValue {
+
+    pub fn new(identifier: &'a str, display_name: &'a str, frame_id: u32) -> NodeValue<'a> {
         NodeValue {
             identifier,
             display_name,
@@ -59,6 +60,10 @@ impl<'a> NodeValue<'a> {
     fn get_frame_id(&self) -> u32 {
         self.frame_id
     }
+
+    fn print_info(&self) {
+        println!("{:<25} {:.2}    Updated: {}", self.display_name, self.value, self.frames_since_update);
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -72,14 +77,19 @@ impl<'a> Overview<'a> {
     }
 
     pub fn join(&mut self, values: NodeValue<'a>) {
-        self.hash_map.
-            insert(values.identifier, values);
+        self.hash_map
+            .insert(values.identifier, values);
+    }
+
+    pub fn add_node(&mut self, identifier: &'a str, display_name: &'a str, frame_id: u32) {
+        let temp = NodeValue::new(identifier, display_name, frame_id);
+        self.join(temp.clone());
     }
 
     pub fn update_entry(&mut self, identifier: &'a str, new_entry: f32) {
-        self.hash_map.
-            get_mut(identifier).unwrap().
-            update_value(new_entry);
+        self.hash_map
+            .get_mut(identifier).unwrap()
+            .update_value(new_entry);
     }
 
     pub fn increment(&mut self) {
@@ -97,4 +107,52 @@ impl<'a> Overview<'a> {
         }
         temp
     }
+
+    pub fn print_info(&self) {
+        for (_, val) in self.hash_map.iter() {
+            val.print_info();
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn make_struct() -> NodeValue<'static> {
+        NodeValue::new("temperature_diode", "Diode Temperature".to_string(), 406768872)
+    }
+
+    fn make_map() -> Overview<'static> {
+        let mut map = Overview::new();
+        map.join(make_struct());
+        map
+    }
+
+    #[test]
+    fn frames_since_updates_functioning() {
+        let mut temp = make_struct();
+        temp.not_updated();
+        assert_eq!(temp.frames_since_update, 0);
+    }
+
+    #[test]
+    fn value_updating_functioning() {
+        let mut temp = make_struct();
+        temp.update_value(48.0);
+        assert_eq!(temp.value, 48.0);
+    }
+
+    #[test]
+    fn frame_id_return_functioning() {
+        let temp = make_struct();
+        assert_eq!(temp.frame_id, temp.get_frame_id());
+    }
+
+    // #[test]
+    // fn struct_update_frame_status() {
+    //     let mut temp =  make_map();
+    //     temp.increment();
+    //     assert_eq!(temp.hash_map.frames_since_update, 0) ;
+    // }
 }
