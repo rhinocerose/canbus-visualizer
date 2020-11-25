@@ -20,10 +20,13 @@ Service	src/configs/systemvalues.rs	/^    Service,$/;"	e	enum:States
 Standby	src/configs/systemvalues.rs	/^    Standby,$/;"	e	enum:States
 StateStatus	src/configs/systemvalues.rs	/^pub struct StateStatus {$/;"	s
 States	src/configs/systemvalues.rs	/^pub enum States {$/;"	g
+add_node	src/configs/systemvalues.rs	/^    pub fn add_node(&mut self, identifier: &'a str, display_name: &'a str, frame_id: u32) {$/;"	P	implementation:Overview
 configs	src/main.rs	/^mod configs;$/;"	n
-display_name	src/configs/systemvalues.rs	/^    pub display_name: String,$/;"	m	struct:NodeValue
+display_name	src/configs/systemvalues.rs	/^    pub display_name: &'a str,$/;"	m	struct:NodeValue
 frame_id	src/configs/systemvalues.rs	/^    pub frame_id: u32,$/;"	m	struct:NodeValue
+frame_id_return_functioning	src/configs/systemvalues.rs	/^    fn frame_id_return_functioning() {$/;"	f	module:tests
 frames_since_update	src/configs/systemvalues.rs	/^    pub frames_since_update: i32,$/;"	m	struct:NodeValue
+frames_since_updates_functioning	src/configs/systemvalues.rs	/^    fn frames_since_updates_functioning() {$/;"	f	module:tests
 get_frame_id	src/configs/systemvalues.rs	/^    fn get_frame_id(&self) -> u32 {$/;"	P	implementation:NodeValue
 get_identifier	src/configs/systemvalues.rs	/^    fn get_identifier(&self) -> &'a str {$/;"	P	implementation:NodeValue
 hash_map	src/configs/systemvalues.rs	/^    pub hash_map: HashMap<&'a str, NodeValue<'a>>,$/;"	m	struct:Overview
@@ -32,16 +35,22 @@ increment	src/configs/systemvalues.rs	/^    pub fn increment(&mut self) {$/;"	P	
 join	src/configs/systemvalues.rs	/^    pub fn join(&mut self, values: NodeValue<'a>) {$/;"	P	implementation:Overview
 last_updated	src/configs/systemvalues.rs	/^    pub last_updated: DateTime<Local>,$/;"	m	struct:NodeValue
 main	src/main.rs	/^async fn main() -> Result<(), Error> {$/;"	f
+make_map	src/configs/systemvalues.rs	/^    fn make_map() -> Overview<'static> {$/;"	f	module:tests
+make_struct	src/configs/systemvalues.rs	/^    fn make_struct() -> NodeValue<'static> {$/;"	f	module:tests
 match_frame	src/configs/systemvalues.rs	/^    pub fn match_frame(&self, frame_id: u32) -> Vec<&'a str> {$/;"	P	implementation:Overview
 new	src/configs/systemvalues.rs	/^    pub fn new() -> Overview<'a> {$/;"	P	implementation:Overview
-new	src/configs/systemvalues.rs	/^    pub fn new(identifier: &'a str, display_name: String, frame_id: u32) -> NodeValue {$/;"	P	implementation:NodeValue
+new	src/configs/systemvalues.rs	/^    pub fn new(identifier: &'a str, display_name: &'a str, frame_id: u32) -> NodeValue<'a> {$/;"	P	implementation:NodeValue
 not_updated	src/configs/systemvalues.rs	/^    fn not_updated(&mut self) {$/;"	P	implementation:NodeValue
-parse_frame	src/main.rs	/^fn parse_frame(library: &PgnLibrary, frame: &CANFrame, values: &mut configs::Overview) -> Result/;"	f
-read_frame	src/main.rs	/^fn read_frame(target: &str, library: &PgnLibrary, frame: &CANFrame) -> Result<f32, Error> {$/;"	f
+parse_frame	src/main.rs	/^fn parse_frame(library: &PgnLibrary, frame: &CANFrame, values: &mut Overview) -> Result<(), Box</;"	f
+print_info	src/configs/systemvalues.rs	/^    fn print_info(&self) {$/;"	P	implementation:NodeValue
+print_info	src/configs/systemvalues.rs	/^    pub fn print_info(&self) {$/;"	P	implementation:Overview
+read_frame	src/main.rs	/^fn read_frame(target: &str, library: &PgnLibrary, frame: &CANFrame) -> Result<f32, Box<dyn std::/;"	f
 state_current	src/configs/systemvalues.rs	/^    state_current: States,$/;"	m	struct:StateStatus
 state_historic	src/configs/systemvalues.rs	/^    state_historic: States,$/;"	m	struct:StateStatus
 state_previous	src/configs/systemvalues.rs	/^    state_previous: States,$/;"	m	struct:StateStatus
 systemvalues	src/configs.rs	/^mod systemvalues;$/;"	n
+tests	src/configs/systemvalues.rs	/^mod tests {$/;"	n
 update_entry	src/configs/systemvalues.rs	/^    pub fn update_entry(&mut self, identifier: &'a str, new_entry: f32) {$/;"	P	implementation:Overview
 update_value	src/configs/systemvalues.rs	/^    fn update_value(&mut self, value: f32) {$/;"	P	implementation:NodeValue
 value	src/configs/systemvalues.rs	/^    pub value: f32,$/;"	m	struct:NodeValue
+value_updating_functioning	src/configs/systemvalues.rs	/^    fn value_updating_functioning() {$/;"	f	module:tests
