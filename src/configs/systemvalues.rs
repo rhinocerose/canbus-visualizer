@@ -1,9 +1,9 @@
 #![allow(dead_code)]
 
-use std::collections::HashMap;
 use chrono::prelude::*;
+use std::collections::HashMap;
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Deserialize, Copy, Clone)]
 pub enum States {
     Standby,
     Charge,
@@ -20,23 +20,48 @@ pub struct StateStatus {
     state_historic: States,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct NodeValue<'a> {
     pub identifier: &'a str,
     pub display_name: &'a str,
     pub value: f32,
+    pub state: States,
+    pub subsystem: &'a str,
     pub frame_id: u32,
     pub last_updated: DateTime<Local>,
     pub frames_since_update: i32,
 }
 
 impl<'a> NodeValue<'a> {
-
-    pub fn new(identifier: &'a str, display_name: &'a str, frame_id: u32) -> NodeValue<'a> {
+    fn new(
+        identifier: &'a str,
+        display_name: &'a str,
+        frame_id: u32
+    ) -> NodeValue<'a> {
         NodeValue {
             identifier,
             display_name,
             value: 0.0,
+            state: States::Standby,
+            subsystem: "none",
+            frame_id,
+            last_updated: Local::now(),
+            frames_since_update: -1,
+        }
+    }
+
+    fn new_state(
+        identifier: &'a str,
+        display_name: &'a str,
+        frame_id: u32,
+        subsystem: &'a str,
+    ) -> NodeValue<'a> {
+        NodeValue {
+            identifier,
+            display_name,
+            value: 0.0,
+            state: States::Standby,
+            subsystem,
             frame_id,
             last_updated: Local::now(),
             frames_since_update: -1,
@@ -61,8 +86,15 @@ impl<'a> NodeValue<'a> {
         self.frame_id
     }
 
+    fn get_subsystem(&self) -> &'a str {
+        self.subsystem
+    }
+
     fn print_info(&self) {
-        println!("{:<25} {:.2}    Updated: {}", self.display_name, self.value, self.frames_since_update);
+        println!(
+            "{:<25} {:.2}    Updated: {}",
+            self.display_name, self.value, self.frames_since_update
+        );
     }
 }
 
@@ -73,12 +105,13 @@ pub struct Overview<'a> {
 
 impl<'a> Overview<'a> {
     pub fn new() -> Overview<'a> {
-        Overview { hash_map: HashMap::new() }
+        Overview {
+            hash_map: HashMap::new(),
+        }
     }
 
     pub fn join(&mut self, values: NodeValue<'a>) {
-        self.hash_map
-            .insert(values.identifier, values);
+        self.hash_map.insert(values.identifier, values);
     }
 
     pub fn add_node(&mut self, identifier: &'a str, display_name: &'a str, frame_id: u32) {
@@ -88,7 +121,8 @@ impl<'a> Overview<'a> {
 
     pub fn update_entry(&mut self, identifier: &'a str, new_entry: f32) {
         self.hash_map
-            .get_mut(identifier).unwrap()
+            .get_mut(identifier)
+            .unwrap()
             .update_value(new_entry);
     }
 
@@ -108,6 +142,17 @@ impl<'a> Overview<'a> {
         temp
     }
 
+    pub fn match_state(&self) -> Vec<&'a str> {
+        let mut temp: Vec<&str> = Vec::new();
+        for (_, val) in self.hash_map.iter() {
+            if "system" == val.get_subsystem() {
+                temp.push(val.get_identifier());
+            }
+        }
+        println!("{:?}", temp);
+        temp
+    }
+
     pub fn print_info(&self) {
         for (_, val) in self.hash_map.iter() {
             val.print_info();
@@ -120,7 +165,11 @@ mod tests {
     use super::*;
 
     fn make_struct() -> NodeValue<'static> {
-        NodeValue::new("temperature_diode", "Diode Temperature".to_string(), 406768872)
+        NodeValue::new(
+            "temperature_diode",
+            "Diode Temperature".to_string(),
+            406768872,
+        )
     }
 
     fn make_map() -> Overview<'static> {
