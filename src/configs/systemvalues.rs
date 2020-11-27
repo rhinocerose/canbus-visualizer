@@ -1,6 +1,9 @@
 #![allow(dead_code)]
 
-#[derive(Debug, Copy, Clone)]
+use chrono::prelude::*;
+use std::collections::HashMap;
+
+#[derive(Debug, Deserialize, Copy, Clone)]
 pub enum States {
     Standby,
     Charge,
@@ -11,77 +14,194 @@ pub enum States {
     Error,
 }
 
-#[derive(Debug, Copy, Clone)]
-pub struct SystemValues {
-    pub temperature_contactor: f32,
-    pub temperature_diode: f32,
-    pub temperature_max_mono: f32,
-    pub temperature_min_mono: f32,
-    pub voltage_max_mono: f32,
-    pub voltage_min_mono: f32,
-    pub voltage_hv1: f32,
-    pub voltage_hv2: f32,
-    pub voltage_supply: f32,
-    pub state_current_num: f32,
-    pub state_current: States,
-    pub soc: f32,
-    pub voltage_stack: f32,
-    pub current_system: f32,
-    pub power_instant: f32,
-    pub power_cumulative: f32,
-    pub current_shunt: f32,
-    pub current_hall: f32,
-    pub raw_temperature_diode: f32,
-    pub raw_soc: f32,
+pub struct StateStatus {
+    state_current: States,
+    state_previous: States,
+    state_historic: States,
 }
 
-impl SystemValues {
-    pub fn new() -> SystemValues {
-        SystemValues {
-            temperature_contactor: 0.0,
-            temperature_diode: 0.0,
-            temperature_max_mono: 0.0,
-            temperature_min_mono: 0.0,
-            voltage_max_mono: 0.0,
-            voltage_min_mono: 0.0,
-            voltage_hv1: 0.0,
-            voltage_hv2: 0.0,
-            voltage_supply: 0.0,
-            state_current_num: 0.0,
-            state_current: States::Standby,
-            soc: 0.0,
-            voltage_stack: 0.0,
-            current_system: 0.0,
-            power_instant: 0.0,
-            power_cumulative: 0.0,
-            current_shunt: 0.0,
-            current_hall: 0.0,
-            raw_temperature_diode: 0.0,
-            raw_soc: 0.0,
+#[derive(Debug, Deserialize, Clone)]
+pub struct NodeValue<'a> {
+    pub identifier: &'a str,
+    pub display_name: &'a str,
+    pub value: f32,
+    pub state: States,
+    pub subsystem: &'a str,
+    pub frame_id: u32,
+    pub last_updated: DateTime<Local>,
+    pub frames_since_update: i32,
+}
+
+impl<'a> NodeValue<'a> {
+    fn new(
+        identifier: &'a str,
+        display_name: &'a str,
+        frame_id: u32
+    ) -> NodeValue<'a> {
+        NodeValue {
+            identifier,
+            display_name,
+            value: 0.0,
+            state: States::Standby,
+            subsystem: "none",
+            frame_id,
+            last_updated: Local::now(),
+            frames_since_update: -1,
         }
     }
-    pub fn parse_state(&self) {
 
+    fn new_state(
+        identifier: &'a str,
+        display_name: &'a str,
+        frame_id: u32,
+        subsystem: &'a str,
+    ) -> NodeValue<'a> {
+        NodeValue {
+            identifier,
+            display_name,
+            value: 0.0,
+            state: States::Standby,
+            subsystem,
+            frame_id,
+            last_updated: Local::now(),
+            frames_since_update: -1,
+        }
     }
-    pub fn print_frame(&self) {
-        println!("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        println!("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        println!("%%  TEMPS:");
-        println!("%%  Max Temp {}, Min Temp {}, Diode Temp {}, Contactor Temp {}",
-            self.temperature_max_mono, self.temperature_min_mono, self.temperature_diode, self.temperature_contactor);
-        println!("%%  VOLTAGES:");
-        println!("%%  Max voltages {:.2}, Min voltages {:.2}, Stack voltage {:.2}",
-            self.voltage_max_mono, self.voltage_min_mono, self.voltage_stack);
-        println!("%%  CURRENTS:");
-        println!("%%  System Current {:.2}, Hall Current {:.2}, Shunt Current {:.2}",
-            self.current_system, self.current_hall, self.current_shunt);
-        println!("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        println!("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+
+    fn update_value(&mut self, value: f32) {
+        self.value = value;
+        self.frames_since_update = 0;
+        self.last_updated = Local::now();
+    }
+
+    fn get_identifier(&self) -> &'a str {
+        self.identifier
+    }
+
+    fn not_updated(&mut self) {
+        self.frames_since_update += 1;
+    }
+
+    fn get_frame_id(&self) -> u32 {
+        self.frame_id
+    }
+
+    fn get_subsystem(&self) -> &'a str {
+        self.subsystem
+    }
+
+    fn print_info(&self) {
+        println!(
+            "{:<25} {:.2}    Updated: {}",
+            self.display_name, self.value, self.frames_since_update
+        );
     }
 }
 
-impl std::fmt::Display for SystemValues {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "Contactor: {}, Diode: {}", self.temperature_contactor, self.temperature_diode)
+#[derive(Debug, Clone)]
+pub struct Overview<'a> {
+    pub hash_map: HashMap<&'a str, NodeValue<'a>>,
+}
+
+impl<'a> Overview<'a> {
+    pub fn new() -> Overview<'a> {
+        Overview {
+            hash_map: HashMap::new(),
+        }
     }
+
+    pub fn join(&mut self, values: NodeValue<'a>) {
+        self.hash_map.insert(values.identifier, values);
+    }
+
+    pub fn add_node(&mut self, identifier: &'a str, display_name: &'a str, frame_id: u32) {
+        let temp = NodeValue::new(identifier, display_name, frame_id);
+        self.join(temp.clone());
+    }
+
+    pub fn update_entry(&mut self, identifier: &'a str, new_entry: f32) {
+        self.hash_map
+            .get_mut(identifier)
+            .unwrap()
+            .update_value(new_entry);
+    }
+
+    pub fn increment(&mut self) {
+        for (_, val) in self.hash_map.iter_mut() {
+            val.not_updated();
+        }
+    }
+
+    pub fn match_frame(&self, frame_id: u32) -> Vec<&'a str> {
+        let mut temp: Vec<&str> = Vec::new();
+        for (_, val) in self.hash_map.iter() {
+            if frame_id == val.get_frame_id() {
+                temp.push(val.get_identifier());
+            }
+        }
+        temp
+    }
+
+    pub fn match_state(&self) -> Vec<&'a str> {
+        let mut temp: Vec<&str> = Vec::new();
+        for (_, val) in self.hash_map.iter() {
+            if "system" == val.get_subsystem() {
+                temp.push(val.get_identifier());
+            }
+        }
+        println!("{:?}", temp);
+        temp
+    }
+
+    pub fn print_info(&self) {
+        for (_, val) in self.hash_map.iter() {
+            val.print_info();
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn make_struct() -> NodeValue<'static> {
+        NodeValue::new(
+            "temperature_diode",
+            "Diode Temperature".to_string(),
+            406768872,
+        )
+    }
+
+    fn make_map() -> Overview<'static> {
+        let mut map = Overview::new();
+        map.join(make_struct());
+        map
+    }
+
+    #[test]
+    fn frames_since_updates_functioning() {
+        let mut temp = make_struct();
+        temp.not_updated();
+        assert_eq!(temp.frames_since_update, 0);
+    }
+
+    #[test]
+    fn value_updating_functioning() {
+        let mut temp = make_struct();
+        temp.update_value(48.0);
+        assert_eq!(temp.value, 48.0);
+    }
+
+    #[test]
+    fn frame_id_return_functioning() {
+        let temp = make_struct();
+        assert_eq!(temp.frame_id, temp.get_frame_id());
+    }
+
+    // #[test]
+    // fn struct_update_frame_status() {
+    //     let mut temp =  make_map();
+    //     temp.increment();
+    //     assert_eq!(temp.hash_map.frames_since_update, 0) ;
+    // }
 }

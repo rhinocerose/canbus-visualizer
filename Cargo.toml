@@ -10,14 +10,21 @@ version = "~0.4.0"
 features = ["toml-parsing"]
 
 [dependencies]
+anyhow = "1.0"
 canparse = "0.1"
 can-dbc = "3.0.2"
+chrono = { version = "0.4", features = ["serde"] }
 config_struct = "0.5.0"
 futures = "0.3"
+serde_derive = "1.0.117"
+serde = "1.0.117"
 futures-util = "0.3"
 socketcan = "1.7"
+strum = "0.17.1"
+strum_macros = "0.17.1"
 tokio-socketcan = "0.2.0"
 tokio = "0.2"
+toml = "0.5"
 
 [dependencies.nom]
 version = "4.2"

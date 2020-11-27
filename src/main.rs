@@ -1,68 +1,93 @@
 mod configs;
 
-use std::collections::HashMap;
-use canparse::pgn::{PgnLibrary, SpnDefinition, ParseMessage};
+#[macro_use]
+extern crate serde_derive;
+extern crate toml;
+
+use anyhow::{Context, Result};
+use canparse::pgn::{ParseMessage, PgnLibrary};
+use configs::Overview;
 use futures_util::stream::StreamExt;
+use socketcan::CANFrame;
+use std::{
+    fs::File,
+    io::{prelude::*, BufReader},
+    path::Path,
+};
 use tokio_socketcan::{CANSocket, Error};
-use socketcan::{CANFrame};
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
+    let lib_file = "./data/anz.dbc";
+    let canbus = "vcan0";
+    let config_file = "./data/config.yaml";
 
-    let mut sys_val = configs::SystemValues::new();
-    let mut values: HashMap<&str, f32> = HashMap::new();
-    let lib = PgnLibrary::from_dbc_file("./data/anz.dbc").unwrap();
-    let mut socket_rx = CANSocket::open("vcan0")?;
+    let mut system_values = Overview::new();
+    let lib = PgnLibrary::from_dbc_file(lib_file)?;
+    let mut socket_rx = CANSocket::open(canbus)?;
+
+    create_struct(config_file);
+
+    system_values.add_node("temperature_diode", "Diode Temperature", 406768872);
+    system_values.add_node("temperature_contactor", "Contactor Temperature", 406768872);
+    system_values.add_node("temperature_min_mono", "Min Temperature", 406768872);
+    system_values.add_node("temperature_max_mono", "Max Temperature", 406768872);
+    system_values.add_node("voltage_min_mono", "Min Voltage", 406768872);
+    system_values.add_node("voltage_max_mono", "Max Voltage", 406768872);
 
     while let Some(Ok(frame)) = socket_rx.next().await {
-        parse_frame(&lib, &frame, &mut sys_val);
-        //    configs::SystemValues::print_frame(&sys_val);
-        // println!("{:?}", sys_val);
-        // socket_tx.write_frame(frame)?.await;
+        parse_frame(&lib, &frame, &mut system_values).expect("Unable to read frame");
     }
     Ok(())
 }
 
-fn read_frame(target_value: &str, library: &PgnLibrary, message: &[u8]) -> f32 {
-    println!("{:?}, {:?}", message, target_value);
-    let temp: &SpnDefinition = library.get_spn(target_value).unwrap();
-    temp.parse_message(message).unwrap()
+fn read_frame(
+    target: &str,
+    library: &PgnLibrary,
+    frame: &CANFrame,
+) -> Result<f32, Box<dyn std::error::Error>> {
+    let parsed = library
+        .get_spn(target)
+        .unwrap()
+        .parse_message(frame.data())
+        .with_context(|| format!("could not find target string `{}`", target))?;
+    Ok(parsed)
 }
 
-fn parse_frame(library: &PgnLibrary, frame: &CANFrame, values: &mut configs::SystemValues) {
-    //println!("{:?}", frame);
-    if frame.id() == 0x183ECCE8 {
-        std::mem::swap(&mut values.temperature_diode, &mut read_frame("temperature_diode", &library, frame.data()));
-        std::mem::swap(&mut values.temperature_contactor, &mut read_frame("temperature_contactor", &library, frame.data()));
-        std::mem::swap(&mut values.temperature_max_mono, &mut read_frame("temperature_max_mono", &library, frame.data()));
-        std::mem::swap(&mut values.temperature_min_mono, &mut read_frame("temperature_min_mono", &library, frame.data()));
-        std::mem::swap(&mut values.voltage_max_mono, &mut read_frame("voltage_max_mono", &library, frame.data()));
-        std::mem::swap(&mut values.voltage_min_mono, &mut read_frame("voltage_min_mono", &library, frame.data()));
-        configs::SystemValues::print_frame(values);
+fn parse_frame(
+    library: &PgnLibrary,
+    frame: &CANFrame,
+    values: &mut Overview,
+) -> Result<(), Box<dyn std::error::Error>> {
+    for iterator in values.match_frame(frame.id()) {
+        values.update_entry(iterator, read_frame(iterator, &library, frame).unwrap());
     }
-    if frame.id() == 0x183FCCE8 {
-        std::mem::swap(&mut values.state_current_num, &mut read_frame("state_current_num", &library, frame.data()));
-        std::mem::swap(&mut values.soc, &mut read_frame("soc", &library, frame.data()));
-        std::mem::swap(&mut values.voltage_stack, &mut read_frame("voltage_stack", &library, frame.data()));
-        std::mem::swap(&mut values.current_system, &mut read_frame("current_system", &library, frame.data()));
-        configs::SystemValues::print_frame(values);
-    }
-    if frame.id() == 0x1840CCE8 {
-        std::mem::swap(&mut values.current_hall, &mut read_frame("current_hall", &library, frame.data()));
-        std::mem::swap(&mut values.current_shunt, &mut read_frame("current_shunt", &library, frame.data()));
-        std::mem::swap(&mut values.power_cumulative, &mut read_frame("power_cumulative", &library, frame.data()));
-        std::mem::swap(&mut values.power_instant, &mut read_frame("power_instant", &library, frame.data()));
-        configs::SystemValues::print_frame(values);
-    }
-    if frame.id() == 0x183CCCE8 {
-        std::mem::swap(&mut values.voltage_hv1, &mut read_frame("voltage_hv1", &library, frame.data()));
-        std::mem::swap(&mut values.voltage_hv2, &mut read_frame("voltage_hv2", &library, frame.data()));
-        std::mem::swap(&mut values.voltage_supply, &mut read_frame("voltage_supply", &library, frame.data()));
-    }
-    if frame.id() == 0x1834CCE8 {
-        println!("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-        println!("FOUND FRAME");
-        println!("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-        std::mem::swap(&mut values.raw_soc, &mut read_frame("raw_soc", &library, frame.data()));
+    values.match_state();
+    values.print_info();
+    values.increment();
+    Ok(())
+}
+
+// fn (filename: impl AsRef<Path>) -> Vec<String> {
+//     let file = File::open(filename).expect("no such file");
+//     let buf = BufReader::new(file);
+//     buf.lines()
+//         .map(|l| l.expect("Could not parse line"))
+//         .collect()
+// }
+
+fn create_struct(filename: impl AsRef<Path>) {
+    let file = File::open(filename).expect("no such file");
+    let buf = BufReader::new(file);
+    let buf: Vec<String> = buf
+        .lines()
+        .map(|l| l.expect("Could not parse line"))
+        .collect();
+    for mut line in buf {
+        line.retain(|c| c != '"');
+        // let space_offset = line.find(':').unwrap_or(line.len());
+        line.drain(..line.find(':').unwrap_or(line.len()));
+        // line.remove(0);
+        println!("{:?}", line);
     }
 }
