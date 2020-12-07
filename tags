@@ -7,8 +7,6 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/86bdb84c/
-Chapter 1	documentation/src/chapter_1.md	/^# Chapter 1$/;"	c
-Chapter 1	src/chapter_1.md	/^# Chapter 1$/;"	c
 Charge	src/configs/systemvalues.rs	/^    Charge,$/;"	e	enum:States
 Discharge	src/configs/systemvalues.rs	/^    Discharge,$/;"	e	enum:States
 EOD	src/configs/systemvalues.rs	/^    EOD,$/;"	e	enum:States
@@ -22,8 +20,6 @@ Service	src/configs/systemvalues.rs	/^    Service,$/;"	e	enum:States
 Standby	src/configs/systemvalues.rs	/^    Standby,$/;"	e	enum:States
 StateStatus	src/configs/systemvalues.rs	/^pub struct StateStatus {$/;"	s
 States	src/configs/systemvalues.rs	/^pub enum States {$/;"	g
-Summary	documentation/src/SUMMARY.md	/^# Summary$/;"	c
-Summary	src/SUMMARY.md	/^# Summary$/;"	c
 add_node	src/configs/systemvalues.rs	/^    pub fn add_node(&mut self, identifier: &'a str, display_name: &'a str, frame_id: u32) {$/;"	P	implementation:Overview
 configs	src/main.rs	/^mod configs;$/;"	n
 create_struct	src/main.rs	/^fn create_struct(filename: impl AsRef<Path>) {$/;"	f

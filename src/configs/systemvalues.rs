@@ -1,9 +1,12 @@
 #![allow(dead_code)]
 
 use chrono::prelude::*;
+use num_derive::FromPrimitive;
+use num_traits::FromPrimitive;
+use regex::Regex;
 use std::collections::HashMap;
 
-#[derive(Debug, Deserialize, Copy, Clone)]
+#[derive(Debug, Deserialize, FromPrimitive, Copy, Serialize, Clone)]
 pub enum States {
     Standby,
     Charge,
@@ -14,30 +17,20 @@ pub enum States {
     Error,
 }
 
-pub struct StateStatus {
-    state_current: States,
-    state_previous: States,
-    state_historic: States,
-}
-
-#[derive(Debug, Deserialize, Clone)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct NodeValue<'a> {
-    pub identifier: &'a str,
-    pub display_name: &'a str,
-    pub value: f32,
-    pub state: States,
-    pub subsystem: &'a str,
-    pub frame_id: u32,
-    pub last_updated: DateTime<Local>,
-    pub frames_since_update: i32,
+    identifier: &'a str,
+    display_name: &'a str,
+    value: f32,
+    state: States,
+    subsystem: &'a str,
+    frame_id: u32,
+    last_updated: DateTime<Local>,
+    frames_since_update: i32,
 }
 
 impl<'a> NodeValue<'a> {
-    fn new(
-        identifier: &'a str,
-        display_name: &'a str,
-        frame_id: u32
-    ) -> NodeValue<'a> {
+    fn new(identifier: &'a str, display_name: &'a str, frame_id: u32) -> NodeValue<'a> {
         NodeValue {
             identifier,
             display_name,
@@ -74,6 +67,19 @@ impl<'a> NodeValue<'a> {
         self.last_updated = Local::now();
     }
 
+    fn update_state(&mut self) {
+        match FromPrimitive::from_f32(self.value) {
+            Some(States::Standby) => self.state = States::Standby,
+            Some(States::Charge) => self.state = States::Charge,
+            Some(States::Discharge) => self.state = States::Discharge,
+            Some(States::EOD) => self.state = States::EOD,
+            Some(States::Service) => self.state = States::Service,
+            Some(States::PreStandby) => self.state = States::PreStandby,
+            Some(States::Error) => self.state = States::Error,
+            None => println!("couldn't convert"),
+        }
+    }
+
     fn get_identifier(&self) -> &'a str {
         self.identifier
     }
@@ -92,8 +98,8 @@ impl<'a> NodeValue<'a> {
 
     fn print_info(&self) {
         println!(
-            "{:<25} {:.2}    Updated: {}",
-            self.display_name, self.value, self.frames_since_update
+            "{:<25} {} {:.2}    Updated: {}",
+            self.display_name, self.subsystem, self.value, self.frames_since_update
         );
     }
 }
@@ -110,13 +116,37 @@ impl<'a> Overview<'a> {
         }
     }
 
-    pub fn join(&mut self, values: NodeValue<'a>) {
+    fn join(&mut self, values: NodeValue<'a>) {
         self.hash_map.insert(values.identifier, values);
     }
 
-    pub fn add_node(&mut self, identifier: &'a str, display_name: &'a str, frame_id: u32) {
-        let temp = NodeValue::new(identifier, display_name, frame_id);
+    fn add_node(
+        &mut self,
+        identifier: &'a str,
+        display_name: &'a str,
+        frame_id: u32,
+        subsystem: &'a str,
+    ) {
+        let temp = NodeValue::new_state(identifier, display_name, frame_id, subsystem);
         self.join(temp.clone());
+    }
+
+    pub fn add_nodes(&mut self, string_file: &'a str) {
+        lazy_static! {
+            static ref REG: Regex = Regex::new(
+                r"\nidentifier: (.+)\n  display_name: (.+)\n  frame_id: (\d+)\n  subsystem: (.+)"
+            )
+            .unwrap();
+        }
+
+        for cap in REG.captures_iter(string_file) {
+            let identifier = cap.get(1).map_or("", |m| m.as_str());
+            let display_name = cap.get(2).map_or("", |m| m.as_str());
+            let frame_id: u32 = cap.get(3).map_or(0, |m| m.as_str().parse::<u32>().unwrap());
+            let subsystem = cap.get(4).map_or("", |m| m.as_str());
+            self.add_node(identifier, display_name, frame_id, subsystem);
+        }
+        self.print_info();
     }
 
     pub fn update_entry(&mut self, identifier: &'a str, new_entry: f32) {
@@ -126,7 +156,13 @@ impl<'a> Overview<'a> {
             .update_value(new_entry);
     }
 
-    pub fn increment(&mut self) {
+    pub fn process(&mut self) {
+        self.match_state();
+        self.print_info();
+        self.increment();
+    }
+
+    fn increment(&mut self) {
         for (_, val) in self.hash_map.iter_mut() {
             val.not_updated();
         }
@@ -142,15 +178,13 @@ impl<'a> Overview<'a> {
         temp
     }
 
-    pub fn match_state(&self) -> Vec<&'a str> {
-        let mut temp: Vec<&str> = Vec::new();
-        for (_, val) in self.hash_map.iter() {
-            if "system" == val.get_subsystem() {
-                temp.push(val.get_identifier());
+    pub fn match_state(&mut self) {
+        for (_, val) in self.hash_map.iter_mut() {
+            if "state" == val.get_subsystem() {
+                val.update_state();
+                println!("State: {:?}", val.state);
             }
         }
-        println!("{:?}", temp);
-        temp
     }
 
     pub fn print_info(&self) {
@@ -197,11 +231,4 @@ mod tests {
         let temp = make_struct();
         assert_eq!(temp.frame_id, temp.get_frame_id());
     }
-
-    // #[test]
-    // fn struct_update_frame_status() {
-    //     let mut temp =  make_map();
-    //     temp.increment();
-    //     assert_eq!(temp.hash_map.frames_since_update, 0) ;
-    // }
 }
