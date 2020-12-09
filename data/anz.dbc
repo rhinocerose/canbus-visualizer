@@ -44,8 +44,8 @@ BO_ 406768872 TEMP_VOLTAGE_FRAME: 8 MASTER
     SG_ temperature_min_mono : 56|8@1+ (1,-40) [-40|215] "Celcius" SLAVE
 
 BO_ 406899944 POWER_CURRENT: 8 MASTER
-    SG_ power_instant : 0|16@0+ (1,0) [0|0] "Watt-Hours" SLAVE
-    SG_ power_cumulative : 48|16@0+ (1,0) [0|0] "Watt-Hours" SLAVE
+    SG_ power_instant : 0|16@0+ (0.1,-1600) [0|0] "Watt-Hours" SLAVE
+    SG_ power_cumulative : 48|16@0+ (0.1,-1600) [0|0] "Watt-Hours" SLAVE
     SG_ current_hall : 16|16@0+ (0.1,-1600) [0|0] "Amps" SLAVE
     SG_ current_shunt : 0|16@0+ (0.1,-1600) [0|0] "Amps" SLAVE
 
