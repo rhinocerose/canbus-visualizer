@@ -60,3 +60,7 @@ identifier: current_system
   display_name: System Current
   frame_id: 406834408
   subsystem: current
+identifier: voltage_supply
+  display_name: Voltage Supply
+  frame_id: 406637800
+  subsystem: voltage
