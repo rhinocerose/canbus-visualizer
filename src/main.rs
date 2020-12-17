@@ -8,7 +8,6 @@ use configs::Overview;
 use futures_util::stream::StreamExt;
 use tokio_socketcan::{CANSocket, Error};
 use std::fs;
-// use socketcan::CANSocket;
 
 const DBC_FILE: &str        = "./data/anz.dbc";
 const CAN_CHANNEL: &str     = "vcan0";
