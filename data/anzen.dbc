@@ -33,6 +33,7 @@ NS_ :
 
 BS_:
 BU_: MASTER SLAVE
+
 BO_ 406768872 TEMP_VOLTAGE_FRAME: 8 MASTER
     SG_ temperature_diode : 0|8@1+ (1,-40) [-40|215] "Celcius" SLAVE
     SG_ voltage_max_mono : 40|16@0+ (0.001,0) [0|0] "Volts" SLAVE
@@ -74,6 +75,26 @@ BO_ 406113512 RAW_FRAME: 8 MASTER
    SG_ raw_current_system m2 : 8|16@1+ (0.1,-1600) [0|0] "Amps" SLAVE
    SG_ raw_current_hall m2 : 24|16@1+ (0.1,-1600) [0|0] "Amps" SLAVE
    SG_ raw_current_shunt m2 : 40|16@1+ (0.1,-1600) [0|0] "Amps" SLAVE
+
+CM_ BO_ 406768872 "Temp Voltage Frame 183ECCE8";
+CM_ SG_ 406768872 temperature_diode "Diode temperature";
+CM_ SG_ 406768872 temperature_contactor "Contactor temperature";
+CM_ SG_ 406768872 temperature_max_mono "Maximum monoblock temperature";
+CM_ SG_ 406768872 temperature_min_mono "Minimum monoblock temperature";
+CM_ SG_ 406768872 voltage_max_mono "Maximum monoblock voltage";
+CM_ SG_ 406768872 voltage_min_mono "Minimum monoblock voltage";
+CM_ BO_ 406899944 "Power Current Frame 1840CCE8"
+CM_ SG_ 406899944 power_instant "Instant power";
+CM_ SG_ 406899944 power_cumulative "Cumulative power";
+CM_ SG_ 406899944 current_hall "Hall effect current";
+CM_ SG_ 406899944 current_shunt "Shunt current";
+CM_ BO_ 406834408 "SOC Current Frame 183FCCE8";
+CM_ SG_ 406834408 state_current_num "State - current number";
+CM_ SG_ 406834408 soc "SOC";
+CM_ SG_ 406834408 inputs "Inputs"
+CM_ SG_ 406834408 outputs "Outputs"
+CM_ SG_ 406834408 voltage_stack "Stack voltage - HV1"
+CM_ SG_ 406834408 current_system "System Current"
 
 BA_DEF_ BO_ "GenMsgBackgroundColor" STRING ;
 BA_DEF_ BO_ "GenMsgForegroundColor" STRING ;
