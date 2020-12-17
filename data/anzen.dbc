@@ -56,26 +56,6 @@ BO_ 406834408 SOC_CURRENT: 8 MASTER
     SG_ voltage_stack : 16|16@0+ (0.1,0) [0|0] "Volts" SLAVE
     SG_ current_system : 0|16@0+ (0.1,-1600) [0|0] "Amps" SLAVE
 
-BO_ 406637800 DEBUG_FRAME: 8 MASTER
-   SG_ debug_frame_id M : 0|8@1+ (1,0) [0|0] "" SLAVE
-   SG_ voltage_hv1 m4 : 8|16@1+ (1,0) [0|0] "Volts" SLAVE
-   SG_ voltage_hv2 m4 : 24|16@1+ (1,0) [0|0] "Volts" SLAVE
-   SG_ voltage_supply m4 : 40|16@1+ (1,0) [0|0] "Volts" SLAVE
-
-BO_ 406113512 RAW_FRAME: 8 MASTER
-   SG_ raw_frameid M : 0|8@1+ (1,0) [0|0] "" SLAVE
-   SG_ raw_soc m2 : 56|8@1+ (1,0) [0|100] "Percent" SLAVE
-   SG_ raw_state_present_num m1 : 8|8@1+ (1,0) [0|0] "0" MASTER
-   SG_ raw_state_previous_num m1 : 16|8@1+ (1,0) [0|0] "" MASTER
-   SG_ raw_state_historic_num m1 : 24|8@1+ (1,0) [0|0] "" MASTER
-   SG_ raw_temperature_system m1 : 40|8@1+ (1,-40) [0|0] "Celcius" MASTER
-   SG_ raw_state_error_message m1 : 32|8@1+ (1,0) [0|0] "" MASTER
-   SG_ raw_temperature_diode m1 : 48|8@1+ (1,-40) [0|0] "Celcius" MASTER
-   SG_ raw_temperature_contactor m1 : 56|8@1+ (1,-40) [0|0] "Celcius" MASTER
-   SG_ raw_current_system m2 : 8|16@1+ (0.1,-1600) [0|0] "Amps" SLAVE
-   SG_ raw_current_hall m2 : 24|16@1+ (0.1,-1600) [0|0] "Amps" SLAVE
-   SG_ raw_current_shunt m2 : 40|16@1+ (0.1,-1600) [0|0] "Amps" SLAVE
-
 CM_ BO_ 406768872 "Temp Voltage Frame 183ECCE8";
 CM_ SG_ 406768872 temperature_diode "Diode temperature";
 CM_ SG_ 406768872 temperature_contactor "Contactor temperature";
@@ -95,6 +75,25 @@ CM_ SG_ 406834408 inputs "Inputs"
 CM_ SG_ 406834408 outputs "Outputs"
 CM_ SG_ 406834408 voltage_stack "Stack voltage - HV1"
 CM_ SG_ 406834408 current_system "System Current"
+
+
+BA_DEF_ SG_  "SPN" INT 0 524287;
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","J1939PG";
+BA_DEF_  "DatabaseVersion" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "ProtocolType" STRING ;
+BA_DEF_  "DatabaseCompiler" STRING ;
+BA_DEF_DEF_  "SPN" 0;
+BA_DEF_DEF_  "VFrameFormat" "J1939PG";
+BA_DEF_DEF_  "DatabaseVersion" "";
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "ProtocolType" "";
+BA_DEF_DEF_  "DatabaseCompiler" "";
+BA_ "ProtocolType" "J1939";
+BA_ "BusType" "CAN";
+BA_ "VFrameFormat" BO_ 406768872 3;
+BA_ "VFrameFormat" BO_ 406899944 3;
+BA_ "VFrameFormat" BO_ 406834408 3;
 
 BA_DEF_ BO_ "GenMsgBackgroundColor" STRING ;
 BA_DEF_ BO_ "GenMsgForegroundColor" STRING ;
