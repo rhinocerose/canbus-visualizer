@@ -21,7 +21,7 @@ async fn main() -> Result<(), Error> {
     let lib                 = PgnLibrary::from_dbc_file(DBC_FILE)?;
     let mut socket_rx       = CANSocket::open(CAN_CHANNEL)?;
 
-    let file_parse: String = fs::read_to_string(CONFIG_FILE).expect("no such file");
+    let file_parse: String = fs::read_to_string(CONFIG_FILE).expect("Invalid config file");
     system_values.add_nodes(&file_parse);
 
     while let Some(Ok(frame)) = socket_rx.next().await {
@@ -29,18 +29,3 @@ async fn main() -> Result<(), Error> {
     }
     Ok(())
 }
-
-// fn main() {
-
-//         let mut system_values   = Overview::new();
-//         let lib                 = PgnLibrary::from_dbc_file(DBC_FILE).expect("no such file");
-//         let mut socket_rx       = CANSocket::open(CAN_CHANNEL).expect("no such file");
-
-//         let file_parse: String = fs::read_to_string(CONFIG_FILE).expect("no such file");
-//         system_values.add_nodes(&file_parse);
-
-//         loop {
-
-//         }
-
-// }

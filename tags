@@ -18,9 +18,9 @@ Overview	src/configs/systemvalues.rs	/^pub struct Overview<'a> {$/;"	s
 PreStandby	src/configs/systemvalues.rs	/^    PreStandby,$/;"	e	enum:States
 Service	src/configs/systemvalues.rs	/^    Service,$/;"	e	enum:States
 Standby	src/configs/systemvalues.rs	/^    Standby,$/;"	e	enum:States
-States	src/configs/systemvalues.rs	/^pub enum States {$/;"	g
+States	src/configs/systemvalues.rs	/^enum States {$/;"	g
 add_node	src/configs/systemvalues.rs	/^    fn add_node($/;"	P	implementation:Overview
-add_nodes	src/configs/systemvalues.rs	/^    pub fn add_nodes(&mut self, string_file: &'a str) {$/;"	P	implementation:Overview
+add_nodes	src/configs/systemvalues.rs	/^    pub fn add_nodes(&mut self, file_as_string: &'a str) {$/;"	P	implementation:Overview
 configs	src/main.rs	/^mod configs;$/;"	n
 display_name	src/configs/systemvalues.rs	/^    display_name: &'a str,$/;"	m	struct:NodeValue
 frame_id	src/configs/systemvalues.rs	/^    frame_id: u32,$/;"	m	struct:NodeValue
@@ -38,22 +38,20 @@ last_updated	src/configs/systemvalues.rs	/^    last_updated: DateTime<Local>,$/;
 main	src/main.rs	/^async fn main() -> Result<(), Error> {$/;"	f
 make_map	src/configs/systemvalues.rs	/^    fn make_map() -> Overview<'static> {$/;"	f	module:tests
 make_struct	src/configs/systemvalues.rs	/^    fn make_struct() -> NodeValue<'static> {$/;"	f	module:tests
-match_frame	src/configs/systemvalues.rs	/^    pub fn match_frame(&self, frame_id: u32) -> Vec<&'a str> {$/;"	P	implementation:Overview
-match_state	src/configs/systemvalues.rs	/^    pub fn match_state(&mut self) {$/;"	P	implementation:Overview
-new	src/configs/systemvalues.rs	/^    fn new(identifier: &'a str, display_name: &'a str, frame_id: u32) -> NodeValue<'a> {$/;"	P	implementation:NodeValue
+match_frame	src/configs/systemvalues.rs	/^    fn match_frame(&self, frame_id: u32) -> Vec<&'a str> {$/;"	P	implementation:Overview
+match_state	src/configs/systemvalues.rs	/^    fn match_state(&mut self) {$/;"	P	implementation:Overview
+new	src/configs/systemvalues.rs	/^    fn new($/;"	P	implementation:NodeValue
 new	src/configs/systemvalues.rs	/^    pub fn new() -> Overview<'a> {$/;"	P	implementation:Overview
-new_state	src/configs/systemvalues.rs	/^    fn new_state($/;"	P	implementation:NodeValue
 not_updated	src/configs/systemvalues.rs	/^    fn not_updated(&mut self) {$/;"	P	implementation:NodeValue
-parse_frame	src/main.rs	/^fn parse_frame($/;"	f
+parse_frame	src/configs/systemvalues.rs	/^    pub fn parse_frame($/;"	P	implementation:Overview
 print_info	src/configs/systemvalues.rs	/^    fn print_info(&self) {$/;"	P	implementation:NodeValue
-print_info	src/configs/systemvalues.rs	/^    pub fn print_info(&self) {$/;"	P	implementation:Overview
-process	src/configs/systemvalues.rs	/^    pub fn process(&mut self) {$/;"	P	implementation:Overview
-read_frame	src/main.rs	/^fn read_frame($/;"	f
+print_info	src/configs/systemvalues.rs	/^    fn print_info(&self) {$/;"	P	implementation:Overview
+read_frame	src/configs/systemvalues.rs	/^    fn read_frame($/;"	P	implementation:Overview
 state	src/configs/systemvalues.rs	/^    state: States,$/;"	m	struct:NodeValue
 subsystem	src/configs/systemvalues.rs	/^    subsystem: &'a str,$/;"	m	struct:NodeValue
 systemvalues	src/configs.rs	/^mod systemvalues;$/;"	n
 tests	src/configs/systemvalues.rs	/^mod tests {$/;"	n
-update_entry	src/configs/systemvalues.rs	/^    pub fn update_entry(&mut self, identifier: &'a str, new_entry: f32) {$/;"	P	implementation:Overview
+update_entry	src/configs/systemvalues.rs	/^    fn update_entry(&mut self, identifier: &'a str, new_entry: f32) {$/;"	P	implementation:Overview
 update_state	src/configs/systemvalues.rs	/^    fn update_state(&mut self) {$/;"	P	implementation:NodeValue
 update_value	src/configs/systemvalues.rs	/^    fn update_value(&mut self, value: f32) {$/;"	P	implementation:NodeValue
 value	src/configs/systemvalues.rs	/^    value: f32,$/;"	m	struct:NodeValue
