@@ -1,4 +1,4 @@
-VERSION ""
+VERSION "0.10"
 
 
 NS_ :
@@ -63,7 +63,7 @@ CM_ SG_ 406768872 temperature_max_mono "Maximum monoblock temperature";
 CM_ SG_ 406768872 temperature_min_mono "Minimum monoblock temperature";
 CM_ SG_ 406768872 voltage_max_mono "Maximum monoblock voltage";
 CM_ SG_ 406768872 voltage_min_mono "Minimum monoblock voltage";
-CM_ BO_ 406899944 "Power Current Frame 1840CCE8"
+CM_ BO_ 406899944 "Power Current Frame 1840CCE8";
 CM_ SG_ 406899944 power_instant "Instant power";
 CM_ SG_ 406899944 power_cumulative "Cumulative power";
 CM_ SG_ 406899944 current_hall "Hall effect current";
@@ -71,37 +71,80 @@ CM_ SG_ 406899944 current_shunt "Shunt current";
 CM_ BO_ 406834408 "SOC Current Frame 183FCCE8";
 CM_ SG_ 406834408 state_current_num "State - current number";
 CM_ SG_ 406834408 soc "SOC";
-CM_ SG_ 406834408 inputs "Inputs"
-CM_ SG_ 406834408 outputs "Outputs"
-CM_ SG_ 406834408 voltage_stack "Stack voltage - HV1"
-CM_ SG_ 406834408 current_system "System Current"
+CM_ SG_ 406834408 inputs "Inputs";
+CM_ SG_ 406834408 outputs "Outputs";
+CM_ SG_ 406834408 voltage_stack "Stack voltage - HV1";
+CM_ SG_ 406834408 current_system "System Current";
 
-
+BA_DEF_ SG_  "GenSigStartValue" INT 0 10000;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","reserved","OnChange","reserved","reserved","reserved","NoSigSendType";
+BA_DEF_ SG_  "GenSigILSupport" ENUM  "Yes","No";
+BA_DEF_ SG_  "GenSigEVName" STRING ;
+BA_DEF_ SG_  "SigType" STRING ;
 BA_DEF_ SG_  "SPN" INT 0 524287;
+
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 100000;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "Yes","No";
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 1000;
+BA_DEF_ BO_  "GenMsgRequestable" INT 0 1;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "cyclic","reserved","cyclicIfActive","reserved","reserved","reserved","reserved","reserved","noMsgSendType";
 BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","J1939PG";
+BA_DEF_ BO_  "GenMsgBackgroundColor" STRING ;
+BA_DEF_ BO_  "GenMsgForegroundColor" STRING ;
+BA_DEF_ BO_  "matchingcriteria" INT 0 0;
+BA_DEF_ BO_  "matchingcriteria" INT 0 0;
+BA_DEF_ BO_  "filterlabeling" INT 0 0;
+
 BA_DEF_  "DatabaseVersion" STRING ;
 BA_DEF_  "BusType" STRING ;
 BA_DEF_  "ProtocolType" STRING ;
 BA_DEF_  "DatabaseCompiler" STRING ;
+
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigSendType" "NoSigSendType";
+BA_DEF_DEF_  "GenSigILSupport" "Yes";
+BA_DEF_DEF_  "GenSigEVName" "Env@Nodename_@Signame";
+BA_DEF_DEF_  "SigType" "";
 BA_DEF_DEF_  "SPN" 0;
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "Yes";
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgRequestable" 1;
+BA_DEF_DEF_  "GenMsgSendType" "noMsgSendType";
 BA_DEF_DEF_  "VFrameFormat" "J1939PG";
 BA_DEF_DEF_  "DatabaseVersion" "";
 BA_DEF_DEF_  "BusType" "";
 BA_DEF_DEF_  "ProtocolType" "";
-BA_DEF_DEF_  "DatabaseCompiler" "";
+BA_DEF_DEF_  "DatabaseVersion" "";
+BA_DEF_DEF_  "SingleFrame" 1;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenMsgBackgroundColor" "#ffffff";
+BA_DEF_DEF_  "GenMsgForegroundColor" "#000000";
+BA_DEF_DEF_  "matchingcriteria" 0;
+BA_DEF_DEF_  "filterlabeling" false;
+
 BA_ "ProtocolType" "J1939";
 BA_ "BusType" "CAN";
+BA_ "DatabaseVersion" "6.0";
 BA_ "VFrameFormat" BO_ 406768872 3;
 BA_ "VFrameFormat" BO_ 406899944 3;
 BA_ "VFrameFormat" BO_ 406834408 3;
 
-BA_DEF_ BO_ "GenMsgBackgroundColor" STRING ;
-BA_DEF_ BO_ "GenMsgForegroundColor" STRING ;
-BA_DEF_ BO_ "matchingcriteria" INT 0 0;
-BA_DEF_ BO_ "matchingcriteria" INT 0 0;
-BA_DEF_ BO_ "filterlabeling" INT 0 0;
-BA_DEF_DEF_ "GenMsgBackgroundColor" "#ffffff";
-BA_DEF_DEF_ "GenMsgForegroundColor" "#000000";
-BA_DEF_DEF_ "matchingcriteria" 0;
-BA_DEF_DEF_ "matchingcriteria" 0;
-BA_DEF_DEF_ "filterlabeling" false;
+BA_ "SPN" SG_ 406768872 temperature_diode 190;
+BA_ "SPN" SG_ 406768872 temperature_contactor 192;
+BA_ "SPN" SG_ 406768872 temperature_max_mono 194;
+BA_ "SPN" SG_ 406768872 temperature_min_mono 196;
+BA_ "SPN" SG_ 406768872 voltage_max_mono 198;
+BA_ "SPN" SG_ 406768872 voltage_min_mono 199;
+
+BA_ "SPN" SG_ 406899944 power_instant 202;
+BA_ "SPN" SG_ 406899944 power_cumulative 204;
+BA_ "SPN" SG_ 406899944 current_hall 206;
+BA_ "SPN" SG_ 406899944 current_shunt 208;
+
+BA_ "SPN" SG_ 406834408 state_current_num 210;
+BA_ "SPN" SG_ 406834408 soc 212;
+BA_ "SPN" SG_ 406834408 inputs 214;
+BA_ "SPN" SG_ 406834408 outputs 216;
+BA_ "SPN" SG_ 406834408 voltage_stack 218;
+BA_ "SPN" SG_ 406834408 current_system 220;
