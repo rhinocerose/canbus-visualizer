@@ -160,6 +160,7 @@ CM_ SG_ 406834408 voltage_stack "Stack voltage - HV1";
 CM_ SG_ 406834408 current_system "System Current";
 
 BA_DEF_ SG_  "SPN" INT 0 524287;
+BA_DEF_ SG_  "SigType" STRING ;
 
 BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","J1939PG";
 BA_DEF_ BO_  "FilterLabel" INT 0 1;
@@ -176,7 +177,7 @@ BA_DEF_DEF_  "BusType" "";
 BA_DEF_DEF_  "ProtocolType" "";
 BA_DEF_DEF_  "DatabaseVersion" "";
 BA_DEF_DEF_  "FilterLabel" 1;
-
+BA_DEF_DEF_  "SigType" "";
 
 BA_ "SPN" SG_ 406768872 temperature_diode 190;
 BA_ "SPN" SG_ 406768872 temperature_contactor 192;
@@ -191,6 +192,7 @@ BA_ "SPN" SG_ 406899944 current_hall 206;
 BA_ "SPN" SG_ 406899944 current_shunt 208;
 
 BA_ "SPN" SG_ 406834408 state_current_num 210;
+BA_ "SigType" SG_ 406834408 state_current_num "DISCRETE";
 BA_ "SPN" SG_ 406834408 soc 212;
 BA_ "SPN" SG_ 406834408 inputs 214;
 BA_ "SPN" SG_ 406834408 outputs 216;
