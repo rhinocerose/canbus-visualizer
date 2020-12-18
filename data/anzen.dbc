@@ -65,13 +65,13 @@ BO_ 406637800 DEBUG_FRAME: 8 MASTER
 BO_ 406113512 RAW_FRAME: 8 MASTER
     SG_ raw_frameid M : 0|8@1+ (1,0) [0|7] "" SLAVE
     SG_ raw_soc m2 : 56|8@1+ (1,0) [0|100] "Percent" SLAVE
-    SG_ raw_state_present_num m1 : 8|8@1+ (1,0) [0|7] "0" MASTER
-    SG_ raw_state_previous_num m1 : 16|8@1+ (1,0) [0|7] "" MASTER
-    SG_ raw_state_historic_num m1 : 24|8@1+ (1,0) [0|7] "" MASTER
-    SG_ raw_temperature_system m1 : 40|8@1+ (1,-40) [-40|215] "Celcius" MASTER
-    SG_ raw_state_error_message m1 : 32|8@1+ (1,0) [0|25] "" MASTER
-    SG_ raw_temperature_diode m1 : 48|8@1+ (1,-40) [-40|215] "Celcius" MASTER
-    SG_ raw_temperature_contactor m1 : 56|8@1+ (1,-40) [-40|215] "Celcius" MASTER
+    SG_ raw_state_present_num m1 : 8|8@1+ (1,0) [0|7] "0" SLAVE
+    SG_ raw_state_previous_num m1 : 16|8@1+ (1,0) [0|7] "" SLAVE
+    SG_ raw_state_historic_num m1 : 24|8@1+ (1,0) [0|7] "" SLAVE
+    SG_ raw_temperature_system m1 : 40|8@1+ (1,-40) [-40|215] "Celcius" SLAVE
+    SG_ raw_state_error_message m1 : 32|8@1+ (1,0) [0|25] "" SLAVE
+    SG_ raw_temperature_diode m1 : 48|8@1+ (1,-40) [-40|215] "Celcius" SLAVE
+    SG_ raw_temperature_contactor m1 : 56|8@1+ (1,-40) [-40|215] "Celcius" SLAVE
     SG_ raw_current_system m2 : 8|16@1+ (0.1,-1600) [-1600|4953.5] "Amps" SLAVE
     SG_ raw_current_hall m2 : 24|16@1+ (0.1,-1600) [-1600|4953.5] "Amps" SLAVE
     SG_ raw_current_shunt m2 : 40|16@1+ (0.1,-1600) [-1600|4953.5] "Amps" SLAVE
@@ -88,7 +88,7 @@ BO_ 406975873 RANDOM101: 8 MASTER
     SG_ random101 : 0|63@1+ (1,0) [0|0] "" SLAVE
 BO_ 406975874 RANDOM102: 8 MASTER
     SG_ random102 : 0|63@1+ (1,0) [0|0] "" SLAVE
-BO_ 406975875 RANDOM103: 8 MASTER
+BO_ 406975875 RANDOM103: 8 MASTER406637800
     SG_ random103 : 0|63@1+ (1,0) [0|0] "" SLAVE
     
 BO_ 406058368 RANDOM110: 8 MASTER
@@ -112,6 +112,7 @@ BO_ 405963765 RANDOM123: 8 MASTER
 BO_ 403830144 RANDOM130: 8 MASTER
     SG_ random130 : 0|63@1+ (1,0) [0|0] "" SLAVE
 BO_ 403830145 RANDOM131: 8 MASTER
+CM_ BO_ 405916904 "Frame 1838CCE8";
     SG_ random131 : 0|63@1+ (1,0) [0|0] "" SLAVE
 BO_ 403830146 RANDOM132: 8 MASTER
     SG_ random132 : 0|63@1+ (1,0) [0|0] "" SLAVE
@@ -149,6 +150,7 @@ CM_ BO_ 405851368 "Frame 1830CCE8";
 CM_ BO_ 405916904 "Frame 1831CCE8";
 CM_ BO_ 406113512 "Frame 1834CCED";
 CM_ BO_ 405916904 "Frame 1838CCE8";
+CM_ BO_ 406637800 "Frame 183CCCE8";
 CM_ BO_ 406703336 "Frame 183DCCE8";
 
 CM_ BO_ 406768872 "Temp Voltage Frame 183ECCE8";
