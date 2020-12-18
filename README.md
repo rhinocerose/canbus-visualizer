@@ -8,7 +8,7 @@ sudo ip link set vcan0 up
 ## Masking for Relevant Frames
 ```rust
 if let Some(signal_lookup) = signal_lookup.as_ref() {
-    if ((frame.id() << 16) >> 16) == 52456 {
+    if ((frame.id() << 16) >> 16) == 0xCCE8 {
         print_dbc_signals(signal_lookup, &frame);
     }
 }
