@@ -79,69 +79,92 @@ BO_ 406113512 RAW_FRAME: 8 MASTER
 
 BO_ 405851368 OUR_FRAME1: 8 MASTER
 BO_ 405916904 OUR_FRAME2: 8 MASTER
-BO_ 405916904 OUR_FRAME3: 8 MASTER
+BO_ 406637800 OUR_FRAME3: 8 MASTER
 BO_ 406703336 ERROR_FRAME: 8 MASTER
 
 BO_ 406975872 RANDOM100: 8 MASTER
-    SG_ random100 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random100 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 406975873 RANDOM101: 8 MASTER
-    SG_ random101 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random101 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 406975874 RANDOM102: 8 MASTER
-    SG_ random102 : 0|63@1+ (1,0) [0|0] "" SLAVE
-BO_ 406975875 RANDOM103: 8 MASTER406637800
-    SG_ random103 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random102 : 0|63@1+ (0,0) [0|0] "" SLAVE
+BO_ 406975875 RANDOM103: 8 MASTER
+    SG_ random103 : 0|63@1+ (0,0) [0|0] "" SLAVE
     
 BO_ 406058368 RANDOM110: 8 MASTER
-    SG_ random110 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random110 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 406058369 RANDOM111: 8 MASTER
-    SG_ random111 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random111 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 406058370 RANDOM112: 8 MASTER
-    SG_ random112 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random112 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 406058371 RANDOM113: 8 MASTER
-    SG_ random113 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random113 : 0|63@1+ (0,0) [0|0] "" SLAVE
   
 BO_ 405962997 RANDOM120: 8 MASTER
-    SG_ random120 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random120 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 405963253 RANDOM121: 8 MASTER
-    SG_ random121 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random121 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 405963509 RANDOM122: 8 MASTER
-    SG_ random122 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random122 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 405963765 RANDOM123: 8 MASTER
-    SG_ random123 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random123 : 0|63@1+ (0,0) [0|0] "" SLAVE
     
 BO_ 403830144 RANDOM130: 8 MASTER
-    SG_ random130 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random130 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 403830145 RANDOM131: 8 MASTER
 CM_ BO_ 405916904 "Frame 1838CCE8";
-    SG_ random131 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random131 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 403830146 RANDOM132: 8 MASTER
-    SG_ random132 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random132 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 403830147 RANDOM133: 8 MASTER
-    SG_ random133 : 0|63@1+ (1,0) [0|0] "" SLAVE
-    
+    SG_ random133 : 0|63@1+ (0,0) [0|0] "" SLAVE
+
+BO_ 403895680 RANDOM 140: 8 MASTER
+    SG_ random140 : 0|63@1+ (0,0) [0|0] "" SLAVE
+BO_ 403895681 RANDOM 141: 8 MASTER
+    SG_ random141 : 0|63@1+ (0,0) [0|0] "" SLAVE
+BO_ 403895682 RANDOM 142: 8 MASTER
+    SG_ random142 : 0|63@1+ (0,0) [0|0] "" SLAVE
+BO_ 403895683 RANDOM 143: 8 MASTER
+    SG_ random143 : 0|63@1+ (0,0) [0|0] "" SLAVE    
+
+BO_ 403961216 RANDOM 150: 8 MASTER
+    SG_ random150 : 0|63@1+ (0,0) [0|0] "" SLAVE
+BO_ 403961217 RANDOM 151: 8 MASTER
+    SG_ random151 : 0|63@1+ (0,0) [0|0] "" SLAVE
+BO_ 403961218 RANDOM 152: 8 MASTER
+    SG_ random152 : 0|63@1+ (0,0) [0|0] "" SLAVE
+BO_ 403961219 RANDOM 153: 8 MASTER
+    SG_ random153 : 0|63@1+ (0,0) [0|0] "" SLAVE
+
 BO_ 406058371 RANDOM2: 8 MASTER
-    SG_ random2 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random2 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 406582504 RANDOM3: 8 MASTER
-    SG_ random3 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random3 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 406713576 RANDOM4: 8 MASTER
-    SG_ random4 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random4 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 405858548 R3000_LOOKING_FOR_MASTER: 8 MASTER
-    SG_ r3000_looking_for_master : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ r3000_looking_for_master : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 406385896 RANDOM7: 8 MASTER
-    SG_ random7 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random7 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 403734773 RANDOM8: 8 MASTER
-    SG_ random8 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random8 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 405962997 RANDOM9: 8 MASTER
-    SG_ random9 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random9 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 406880501 RANDOM10: 8 MASTER
-    SG_ random10 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random10 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 403735029 RANDOM11: 8 MASTER
-    SG_ random11 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random11 : 0|63@1+ (0,0) [0|0] "" SLAVE
 BO_ 406880757 RANDOM13: 8 MASTER
-    SG_ random13 : 0|63@1+ (1,0) [0|0] "" SLAVE
+    SG_ random13 : 0|63@1+ (0,0) [0|0] "" SLAVE
 
 
 CM_ BO_ 403830144 "Frame 1811F580";
+CM_ BO_ 403895680 "Frame 1812F580";
+CM_ BO_ 403961216 "Frame 1813F580";
+CM_ BO_  "Frame 1814F580";
+CM_ BO_  "Frame 1815F580";
+CM_ BO_  "Frame 1816F580";
 CM_ BO_ 405962997 "Frame 183280F5";
 CM_ BO_ 406058368 "Frame 1833F580";
 CM_ BO_ 406975872 "Frame 1841F580";
