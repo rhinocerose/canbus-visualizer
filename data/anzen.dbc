@@ -49,10 +49,24 @@ BO_ 406899944 POWER_CURRENT: 8 MASTER
     SG_ current_shunt : 0|16@0+ (0.1,-1600) [-1600|4953.5] "Amps" SLAVE
 
 BO_ 406834408 SOC_CURRENT: 8 MASTER
-    SG_ state_current_num : 0|8@1+ (1,0) [0|7] "" SLAVE
+    SG_ state_current_num : 0|8@1+ (1,0) [0|7] "STATE" SLAVE
     SG_ soc : 8|8@1+ (1,0) [0|100] "Percent" SLAVE
-    SG_ inputs : 16|8@1+ (1,0) [0|0] "" SLAVE
-    SG_ outputs : 24|8@1+ (1,0) [0|0] "" SLAVE
+    SG_ input_1 : 16|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ input_2 : 17|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ input_3 : 18|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ input_4 : 19|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ input_5 : 20|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ input_6 : 21|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ input_7 : 22|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ input_8 : 23|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ output_1 : 24|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ output_2 : 25|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ output_3 : 26|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ output_4 : 27|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ output_5 : 28|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ output_6 : 29|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ output_7 : 30|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ output_8 : 31|1@1+ (1,0) [0|0] "" SLAVE
     SG_ voltage_stack : 16|16@0+ (0.1,0) [0|6553.5] "Volts" SLAVE
     SG_ current_system : 0|16@0+ (0.1,-1600) [-1600|4953.5] "Amps" SLAVE
 
@@ -65,138 +79,96 @@ BO_ 406637800 DEBUG_FRAME: 8 MASTER
 BO_ 406113512 RAW_FRAME: 8 MASTER
     SG_ raw_frameid M : 0|8@1+ (1,0) [0|7] "" SLAVE
     SG_ raw_soc m2 : 56|8@1+ (1,0) [0|100] "Percent" SLAVE
-    SG_ raw_state_present_num m1 : 8|8@1+ (1,0) [0|7] "0" SLAVE
-    SG_ raw_state_previous_num m1 : 16|8@1+ (1,0) [0|7] "" SLAVE
-    SG_ raw_state_historic_num m1 : 24|8@1+ (1,0) [0|7] "" SLAVE
+    SG_ raw_state_present_num m1 : 8|8@1+ (1,0) [0|7] "STATE" SLAVE
+    SG_ raw_state_previous_num m1 : 16|8@1+ (1,0) [0|7] "STATE" SLAVE
+    SG_ raw_state_historic_num m1 : 24|8@1+ (1,0) [0|7] "STATE" SLAVE
     SG_ raw_temperature_system m1 : 40|8@1+ (1,-40) [-40|215] "Celcius" SLAVE
     SG_ raw_state_error_message m1 : 32|8@1+ (1,0) [0|25] "" SLAVE
     SG_ raw_temperature_diode m1 : 48|8@1+ (1,-40) [-40|215] "Celcius" SLAVE
     SG_ raw_temperature_contactor m1 : 56|8@1+ (1,-40) [-40|215] "Celcius" SLAVE
-    SG_ raw_current_system m2 : 8|16@1+ (0.1,-1600) [-1600|4953.5] "Amps" SLAVE
-    SG_ raw_current_hall m2 : 24|16@1+ (0.1,-1600) [-1600|4953.5] "Amps" SLAVE
-    SG_ raw_current_shunt m2 : 40|16@1+ (0.1,-1600) [-1600|4953.5] "Amps" SLAVE
-
+    SG_ raw_current_system m2 : 8|16@0+ (0.1,-1600) [-1600|4953.5] "Amps" SLAVE
+    SG_ raw_current_hall m2 : 24|16@0+ (0.1,-1600) [-1600|4953.5] "Amps" SLAVE
+    SG_ raw_current_shunt m2 : 40|16@0+ (0.1,-1600) [-1600|4953.5] "Amps" SLAVE
+    SG_ raw_k_value m3 : 8|16@0+ (1,0) [0|65535] "" SLAVE
+    SG_ raw_voltage_inverter m3 : 24|16@0+ (0.1,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_voltage_supply m3 : 40|16@0+ (0.1,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_soh m3 : 56|8@1+ (1,0) [0|100] "Percent" SLAVE
+    SG_ raw_discharge_cumulative m4 : 8|16@0+ (0.1,-1600) [-1600|4953.5] "Amp-Hours" SLAVE
+    SG_ raw_discharge_absolute m4 : 24|16@0+ (0.1,-1600) [-1600|4953.5] "Amp-Hours" SLAVE
+    SG_ raw_months_of_service m4 : 40|16@0+ (0.1,-1600) [-1600|4953.5] "Months" SLAVE
 
 BO_ 405851368 MONOBLOCK_VOLTAGE_FRAMES: 8 MASTER
+    SG_ raw_mb_voltage_frameid M : 0|8@1+ (1,0) [0|12] "" SLAVE
+    SG_ raw_mb1_voltage m1 : 32|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb2_voltage m1 : 16|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb3_voltage m1 : 0|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb4_voltage m2 : 32|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb5_voltage m2 : 16|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb6_voltage m2 : 0|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb7_voltage m3 : 32|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb8_voltage m3 : 16|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb9_voltage m3 : 0|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb10_voltage m4 : 32|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb11_voltage m4 : 16|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb12_voltage m4 : 0|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb13_voltage m5 : 32|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb14_voltage m5 : 16|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb15_voltage m5 : 0|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb16_voltage m6 : 32|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb17_voltage m6 : 16|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb18_voltage m6 : 0|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb19_voltage m7 : 32|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb20_voltage m7 : 16|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb21_voltage m7 : 0|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb22_voltage m8 : 32|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb23_voltage m8 : 16|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb24_voltage m8 : 0|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb25_voltage m9 : 32|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb26_voltage m9 : 16|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb27_voltage m9 : 0|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb28_voltage m10 : 32|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb29_voltage m10 : 16|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb30_voltage m10 : 0|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb31_voltage m11 : 32|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb32_voltage m11 : 16|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb33_voltage m11 : 0|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb34_voltage m12 : 32|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb35_voltage m12 : 16|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb36_voltage m12 : 0|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb37_voltage m13 : 32|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+    SG_ raw_mb38_voltage m13 : 16|16@0+ (0.001,0) [0|6553.5] "Volts" SLAVE
+
 BO_ 405916904 MONOBLOCK_TEMPERATURE_FRAMES: 8 MASTER
-BO_ 406637800 STATE_MACHINE_DEBUG_FRAMES: 8 MASTER
-BO_ 406703336 ERROR_FRAMES: 8 MASTER
+BO_ 406375656 STATE_MACHINE_DEBUG_FRAMES: 8 MASTER
 
-BO_ 406975872 RANDOM100: 8 MASTER
-    SG_ random100 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 406975873 RANDOM101: 8 MASTER
-    SG_ random101 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 406975874 RANDOM102: 8 MASTER
-    SG_ random102 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 406975875 RANDOM103: 8 MASTER
-    SG_ random103 : 0|63@1+ (0,0) [0|0] "" SLAVE
-    
-BO_ 406058368 RANDOM110: 8 MASTER
-    SG_ random110 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 406058369 RANDOM111: 8 MASTER
-    SG_ random111 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 406058370 RANDOM112: 8 MASTER
-    SG_ random112 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 406058371 RANDOM113: 8 MASTER
-    SG_ random113 : 0|63@1+ (0,0) [0|0] "" SLAVE
-  
-BO_ 405962997 RANDOM120: 8 MASTER
-    SG_ random120 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 405963253 RANDOM121: 8 MASTER
-    SG_ random121 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 405963509 RANDOM122: 8 MASTER
-    SG_ random122 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 405963765 RANDOM123: 8 MASTER
-    SG_ random123 : 0|63@1+ (0,0) [0|0] "" SLAVE
-    
-BO_ 403830144 RANDOM130: 8 MASTER
-    SG_ random130 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 403830145 RANDOM131: 8 MASTER
-CM_ BO_ 405916904 "Frame 1838CCE8";
-    SG_ random131 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 403830146 RANDOM132: 8 MASTER
-    SG_ random132 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 403830147 RANDOM133: 8 MASTER
-    SG_ random133 : 0|63@1+ (0,0) [0|0] "" SLAVE
+BO_ 406703336 ERROR_FRAME: 8 MASTER
+    SG_ raw_errorid M : 0|8@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_feed_charge_overcurrent m1 : 16|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_slow_charge_overcurrent m1 : 17|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_pack_overvolt m1 : 18|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_pack_undervolt m1 : 19|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_pack_overtemp m1 : 20|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_pack_undertemp m1 : 21|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_power_supply_overvolt m1 : 22|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_power_supply_undervolt m1 : 23|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_cell_charge_overtemp m1 : 24|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_cell_voltage_differential m1 : 25|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_single_cell_undervolt m1 : 26|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_single_cell_overvolt m1 : 27|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_soc_low m1 : 28|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_soc_high m1 : 29|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_insulation_resistance m1 : 30|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_discharge_overcurrent m1 : 31|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_cell_soc_differential m1 : 35|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_cell_temperature_differential m1 : 36|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_discharge_overtemp m1 : 37|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_charge_overtemp m1 : 38|1@1+ (1,0) [0|0] "" SLAVE
+    SG_ critical_charge_undertemp m1 : 39|1@1+ (1,0) [0|0] "" SLAVE
 
-BO_ 403895680 RANDOM 140: 8 MASTER
-    SG_ random140 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 403895681 RANDOM 141: 8 MASTER
-    SG_ random141 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 403895682 RANDOM 142: 8 MASTER
-    SG_ random142 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 403895683 RANDOM 143: 8 MASTER
-    SG_ random143 : 0|63@1+ (0,0) [0|0] "" SLAVE    
-
-BO_ 403961216 RANDOM 150: 8 MASTER
-    SG_ random150 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 403961217 RANDOM 151: 8 MASTER
-    SG_ random151 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 403961218 RANDOM 152: 8 MASTER
-    SG_ random152 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 403961219 RANDOM 153: 8 MASTER
-    SG_ random153 : 0|63@1+ (0,0) [0|0] "" SLAVE
-
-BO_ 406058371 RANDOM2: 8 MASTER
-    SG_ random2 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 406582504 RANDOM3: 8 MASTER
-    SG_ random3 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 406713576 RANDOM4: 8 MASTER
-    SG_ random4 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 405858548 R3000_LOOKING_FOR_MASTER: 8 MASTER
-    SG_ r3000_looking_for_master : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 406385896 RANDOM7: 8 MASTER
-    SG_ random7 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 403734773 RANDOM8: 8 MASTER
-    SG_ random8 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 405962997 RANDOM9: 8 MASTER
-    SG_ random9 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 406880501 RANDOM10: 8 MASTER
-    SG_ random10 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 403735029 RANDOM11: 8 MASTER
-    SG_ random11 : 0|63@1+ (0,0) [0|0] "" SLAVE
-BO_ 406880757 RANDOM13: 8 MASTER
-    SG_ random13 : 0|63@1+ (0,0) [0|0] "" SLAVE
-
-
-CM_ BO_ 403830144 "Frame 1811F580";
-CM_ BO_ 403895680 "Frame 1812F580";
-CM_ BO_ 403961216 "Frame 1813F580";
-CM_ BO_  "Frame 1814F580";
-CM_ BO_  "Frame 1815F580";
-CM_ BO_  "Frame 1816F580";
-CM_ BO_ 405962997 "Frame 183280F5";
-CM_ BO_ 406058368 "Frame 1833F580";
-CM_ BO_ 406975872 "Frame 1841F580";
-
-CM_ BO_ 405851368 "Frame 1830CCE8";
-CM_ BO_ 405916904 "Frame 1831CCE8";
-CM_ BO_ 406113512 "Frame 1834CCED";
-CM_ BO_ 405916904 "Frame 1838CCE8";
-CM_ BO_ 406637800 "Frame 183CCCE8";
-CM_ BO_ 406703336 "Frame 183DCCE8";
 
 CM_ BO_ 406768872 "Temp Voltage Frame 183ECCE8";
-CM_ SG_ 406768872 temperature_diode "Diode temperature";
-CM_ SG_ 406768872 temperature_contactor "Contactor temperature";
-CM_ SG_ 406768872 temperature_max_mono "Maximum monoblock temperature";
-CM_ SG_ 406768872 temperature_min_mono "Minimum monoblock temperature";
-CM_ SG_ 406768872 voltage_max_mono "Maximum monoblock voltage";
-CM_ SG_ 406768872 voltage_min_mono "Minimum monoblock voltage";
-
-CM_ BO_ 406834408 "SOC Current Frame 183FCCE8";
-CM_ SG_ 406834408 state_current_num "State - current number";
-CM_ SG_ 406834408 soc "SOC";
-CM_ SG_ 406834408 inputs "Inputs";
-CM_ SG_ 406834408 outputs "Outputs";
-CM_ SG_ 406834408 voltage_stack "Stack voltage - HV1";
-CM_ SG_ 406834408 current_system "System Current";
-
 CM_ BO_ 406899944 "Power Current Frame 1840CCE8";
-CM_ SG_ 406899944 power_instant "Instant power";
-CM_ SG_ 406899944 power_cumulative "Cumulative power";
-CM_ SG_ 406899944 current_hall "Hall effect current";
-CM_ SG_ 406899944 current_shunt "Shunt current";
+CM_ BO_ 406834408 "SOC Current Frame 183FCCE8";
 
 BA_DEF_ SG_  "SPN" INT 0 524287;
 BA_DEF_ SG_  "SigType" STRING ;
@@ -217,23 +189,3 @@ BA_DEF_DEF_  "ProtocolType" "";
 BA_DEF_DEF_  "DatabaseVersion" "";
 BA_DEF_DEF_  "FilterLabel" 1;
 BA_DEF_DEF_  "SigType" "";
-
-BA_ "SPN" SG_ 406768872 temperature_diode 190;
-BA_ "SPN" SG_ 406768872 temperature_contactor 192;
-BA_ "SPN" SG_ 406768872 temperature_max_mono 194;
-BA_ "SPN" SG_ 406768872 temperature_min_mono 196;
-BA_ "SPN" SG_ 406768872 voltage_max_mono 198;
-BA_ "SPN" SG_ 406768872 voltage_min_mono 199;
-
-BA_ "SPN" SG_ 406899944 power_instant 202;
-BA_ "SPN" SG_ 406899944 power_cumulative 204;
-BA_ "SPN" SG_ 406899944 current_hall 206;
-BA_ "SPN" SG_ 406899944 current_shunt 208;
-
-BA_ "SPN" SG_ 406834408 state_current_num 210;
-BA_ "SigType" SG_ 406834408 state_current_num "DISCRETE";
-BA_ "SPN" SG_ 406834408 soc 212;
-BA_ "SPN" SG_ 406834408 inputs 214;
-BA_ "SPN" SG_ 406834408 outputs 216;
-BA_ "SPN" SG_ 406834408 voltage_stack 218;
-BA_ "SPN" SG_ 406834408 current_system 220;
